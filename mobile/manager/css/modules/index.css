@@ -1,0 +1,259 @@
+body > div:first-child , [data-role=panel],#modifyPanel{
+	background-color:#f4f3fd;
+	/*background-image:url("../../img/paper1.jpg") ;*/
+}
+
+.red-3{
+		background-color:#fabeb9 !important;
+}
+
+.green-3{
+		background-color:#a7e1c4 !important;
+}
+
+.blue-3{
+		background-color:#add8f7 !important;
+}
+
+.orange-4{
+		background-color:#faaf76 !important;
+}
+
+.purple-4{
+		background-color:#ffdd76 !important;
+}
+
+.cyan-4{
+		background-color:#76cdd3 !important;
+}
+
+.grey-4{
+		background-color:#e9e9e9 !important;
+}
+
+/**
+ *设置table的td盒子模型
+ */
+ td{
+ 	padding : 0 ;
+ 	margin : 0 ;
+ }
+ 
+ /***
+  * 设置主页面的样式
+  */
+ #chintBodyMain{
+ 		min-height:520px;
+ }
+ 
+ /***
+  * 设置简介中的图片样式
+  */
+  .brief-image{
+  		height:80px;
+  		width:100%;
+  }
+  
+ /***
+  * 设置最新报警中table的样式
+  */
+ .newest-alert{
+ 		width:3.15em;
+ }
+ 
+ /***
+  * 设置内容居中
+  */
+ .center-align{
+ 		text-align: center;
+ }
+ 
+ /***
+  * 设置修改密码中确定按钮样式
+  */
+ #confirmFix,.confirm-button{
+ 		background-color:#00a854;
+ }
+ 
+ /***
+  * 设置修改密码中重置按钮样式
+  */
+ #resetFix,reset-button{
+ 		background-color:#00a2ae;
+ }
+ 
+/**
+ *设置分页样式
+ */
+ .pagingUpDown{
+ 	line-height:36px;
+ 	background:#fff;
+ 	border:1px solid #ddd;
+ 	padding:5px 8px;
+ 	font-size:14px;
+ 	margin-right:5px;
+ }
+ 
+.pagingApostrophe{
+	line-height:36px;
+	background:#fff;
+	border:1px solid #fff;
+	padding:5px 5px;
+	font-size:14px;
+	margin-right:5px;
+}
+
+.pagingCommon{
+	line-height:36px;
+	background:#c2c6c9;
+	border:1px solid #ddd;
+	padding:5px 8px;
+	font-size:14px;
+	margin-right:5px;
+}
+
+.pagingPitched{
+	line-height:36px;
+	border:1px;
+	padding:5px 8px;
+	font-size:14px;
+	margin-right:5px;
+	color:currentColor;
+}
+
+
+/***
+ *	添加panel的a标签样式
+ */
+#addElement{
+	float:right;
+	margin-top:-3em;
+	margin-right:5em;
+	font-weight:300;
+	text-decoration:none;
+}
+
+#filterConditionElement{
+	float:right;
+	margin-top:-3em;
+	font-weight:300;
+	text-decoration:none;
+}
+
+form .ui-controlgroup .ui-controlgroup-label{
+		float:left ;
+		word-break : keep-all ;
+}
+
+.chintCopyRight{
+	font-family:微软雅黑;
+	font-size: 10pt;
+	color: #004080;
+	text-decoration : none;
+}
+
+.welcomeIndexCss{
+		position:absolute;
+		left:15px;
+		top:55px;
+		font-size:12px;
+		color:black;
+		float:left;
+		width:12em;
+}
+
+.chintTime{
+		position:absolute;
+		top:55px;
+		right:-46%;
+		font-size:14px;
+		color:#666;
+		float:right;
+}
+
+.jqm-demos .jqm-header .passwordButton{
+		width:7em;
+		min-width:7em;
+		margin-right: .5em;
+		height:2.5em;
+		
+		background:white;
+		border:0;
+		top:40%;
+		margin-top:-1em;
+		border-radius:.3125em;
+		opacity:1;
+		font-size:12.5px;
+}
+
+.jqm-demos .jqm-header .passwordButton strong{
+		color:initial;
+		font-weight:300;
+}
+
+@media (min-width: 60em) {
+	.jqm-demos .jqm-header .welcomeIndexCss{
+			margin-right:-3em;
+			margin-top: .2em ;
+	}
+	
+	.jqm-demos .jqm-header .chintTime{
+			position:absolute;
+			top:27px;
+			font-size: 15px;
+			color:white;
+			float:right;
+			margin-right:-8em;
+	}
+
+}
+
+@media(max-width:400px){
+		 .pagingUpDown{
+		 	line-height:36px;
+		 	background:#fff;
+		 	border:1px solid #ddd;
+		 	padding:5px 6px;
+		 	font-size:12px;
+		 	margin-right:4px;
+		 }
+		 
+		.pagingApostrophe{
+			line-height:36px;
+			background:#fff;
+			border:1px solid #fff;
+			padding:5px 4px;
+			font-size:12px;
+			margin-right:4px;
+		}
+		
+		.pagingCommon{
+			line-height:36px;
+			background:#c2c6c9;
+			border:1px solid #ddd;
+			padding:5px 6px;
+			font-size:12px;
+			margin-right:4px;
+		}
+		
+		.pagingPitched{
+			line-height:36px;
+			border:1px;
+			padding:5px 6px;
+			font-size:12px;
+			margin-right:4px;
+			color:currentColor;
+		}
+}
+
+/***
+ * button样式
+ */
+ /*确定button样式*/
+ .confirm-button{
+ 		background-color : #3dbd7d !important;
+ }
+ /*取消样式*/
+ .cancel-button{
+ 		background-color : #f79992 !important;
+ }

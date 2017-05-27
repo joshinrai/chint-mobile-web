@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes">
+		<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+		<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+		<meta HTTP-EQUIV="expires" CONTENT="0">
+		<title>正泰燃气综合管理平台</title>
+		<link rel="stylesheet" href="manager/css/common/jquery.mobile-1.4.5.css">
+		<link rel="stylesheet" href="manager/css/common/jquery-ui.css" rel="stylesheet">
+		<link rel="stylesheet" href="manager/css/theme/chint-main.css">
+		<link rel="stylesheet" href="manager/css/modules/index.css">
+	</head>
+	<body>
+		<div data-role="page" class="jqm-demos" data-quicklinks="true">
+		
+		<div data-role="header" class="jqm-header">
+	        <h2><img src="manager/img/chint-head.png" alt="chint Mobile"/>
+	        	<p class="welcomeIndexCss">
+	        		<label id="welcomeIndex">正泰燃气综合管理平台</label>
+	        	</p>
+	        	<p class="chintTime">
+	        		<span id="chintTime"></span>
+	        	</p>
+	       	</h2>
+			<a href="#" style="color:white;" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">菜单</a>
+			<button class="passwordButton">
+				<strong>修改密码</strong></button>
+		</div>
+
+		<div id="chintBodyMain" role="main" class="ui-content jqm-content">
+		
+			<h1>简介</h1>
+			<img src="manager/img/brief.jpg" class="brief-image"></img>
+			<p>为用户提供营收管理、抄表、决策辅助分析和公共增值服务功能。系统支持基表、普通IC卡表、微功率无线表、物联网表，并保证系统正常稳定运行。</p>
+			
+			<h2 id="alert">最新报警</h2>
+			<table data-role="table" id="alertTable" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="" class="table-stroke">
+				<thead><tr class="th-groups"><th class="newest-alert">时间</th><th class="newest-alert">区域</th><th class="newest-alert">仪表</th>
+				<th class="newest-alert">状态</th></tr></thead>
+				<tbody id="alertTbody"></tbody>
+			</table>
+			
+			<h2 id="newestAction">最新动态</h2>
+		
+			<table data-role="table" id="alertTable" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="" class="table-stroke">
+				<thead><tr class="th-groups"><th>动态</th><th>时间</th></tr></thead>
+				<tbody id="actionTbody"></tbody>
+			</table>
+
+			<h2 id="gasProfile">用气概况</h2>
+			
+			<table data-role="table" id="alertTable" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="" class="table-stroke">
+				<tbody id="gasProfileTbody"></tbody>
+			</table>
+
+			<h2 id="draftedByMonth">逐月收费额分析</h2>
+			
+			<div id="chartContainerDraftedByMonth" style="height:400px"></div>
+
+			<h2 id="areaTollAnalyze">区域收费额分析</h2>
+			<div id="chartContainerAreaTollAnalyze" style="height:400px"></div>
+
+		</div>
+	    <div id="menuDiv" data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a">
+	    	<ul id="menuTreeList" class="jqm-list ui-alt-icon ui-nodisc-icon">
+				<li id="chintHomePage" data-filtertext="chint homepage" data-icon="home"><a href="index.html">正泰燃气平台主页</a></li>
+		     </ul>
+		</div>
+		
+		
+		<div data-role="panel" id="change-password" class="center-align" data-position="right" data-display="overlay" data-theme="a">
+			<label>修改密码</label>
+			<input name="oldPassword" id="oldPassword" type="password" placeholder="请输原密码"></input>
+			<input name="newPassword" id="newPassword" type="password" placeholder="请输新密码"></input>
+			<input name="confirmPassword" id="confirmPassword" type="password" placeholder="确认新密码"></input>
+			<label id="confirmLabel"></label>
+			<button id="confirmFix">确认</button>
+			<button id="resetFix">重置</button>
+		</div>
+
+
+		<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+			<p class="center-align"><a  class="chintCopyRight" href="http://www.chintim.com" target="_blank">版权所有 &copy; 浙江正泰仪器仪表有限责任公司</a></p>
+		</div>
+		
+		<!-- 修改内容的panel -->
+		<div id='modifyPanel' data-role='panel' class='jqm-nav-panel ui-panel ui-panel-position-right ui-panel-display-overlay ui-panel-closed ui-body-a 
+							ui-panel-animate' data-position='right' data-display='overlay' "data-theme='a' style='text-align:center;'>
+					<div class='ui-panel-inner'></div>
+		</div>
+		
+		<!-- 过滤条件的panel -->
+		<div id='filterPanel' data-role='panel' class='jqm-nav-panel ui-panel ui-panel-position-right
+					 ui-panel-display-overlay ui-panel-closed ui-body-a ui-panel-animate' data-position='right' data-display='overlay' 
+					data-theme='a' style='text-align:center;'>
+					<div class='ui-panel-inner'>
+					</div>
+		</div>
+		
+		<!-- 弹出框 -->
+		<div data-role='popup' id='modifyPopup' data-overlay-theme='b' data-theme='b' data-dismissible='false' style='max-width:400px;'>
+			<div data-role='header' data-theme='a'>
+					<h1>title</h1>
+			</div>
+			<div role='main' class='ui-content'>
+						<h3 class='ui-title'>content</h3>
+						<a href='#' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b' data-rel='back' data-transition='flow'>ready</a>
+						<a href='#' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b' data-rel='back'>reset</a>
+			</div>
+		</div>
+		
+		<!-- loading -->
+		<div id="loading-modal" class="ui-loader ui-corner-all ui-body-a ui-loader-default">
+			<span class='ui-icon-loading'></span>
+		</div>
+
+	</div>
+
+	<script src="manager/js/common/jquery.js"></script>
+	<script src="manager/js/common/jquery-ui.js"></script>
+	<script src="manager/js/theme/index.js"></script>
+	<script src="manager/js/common/jquery.mobile-1.4.5.min.js"></script>
+	<script src="manager/js/config/config.js"></script>
+	<script src="manager/js/utils/echarts.js"></script>
+	<!-- 自定义插件 -->
+	<script src="manager/js/utils/customjQueryUtil.js"></script>
+	<script src="manager/js/utils/messager.js"></script>
+	<script src="manager/js/plugins/tablePlugin.js"></script>
+	<script src="manager/js/plugins/inputPlugin.js"></script>
+	<script src="manager/js/plugins/textareaPlugin.js"></script>
+	<script src="manager/js/plugins/pageBreakPlugin.js"></script>
+	<script src="manager/js/plugins/collapsiblePlugin.js"></script>
+	<script src="manager/js/plugins/radioPlugin.js"></script>
+	<script src="manager/js/plugins/datetimepickerPlugin.js"></script>
+	
+	<!-- requirejs按需加载 -->
+	<script src="manager/js/utils/require.js"  defer async="true"></script>
+	<script src="manager/js/modules/main.js" charset="utf-8" defer async="true"></script>
+	</body>
+</html>
