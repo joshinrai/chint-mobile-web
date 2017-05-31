@@ -16,6 +16,9 @@ define(function (){
 							loading.show() ;
 							//添加table数据
 							$(this).customAjax(''+config.basePath+config.dataListBills , params , function(flag , data){
+									if(0 == data.total){
+											data.total = data.rows.length ;
+									}
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
 										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
@@ -64,7 +67,7 @@ define(function (){
 											default : paymode = "" ; 
 													break ;
 									}
-									var tr = $("<tr><td  style='border:0;'>"+data.ownername+"</td><td  style='border:0;'>"+transtype+"</td>"+
+									var tr = $("<tr><td  style='border:0;word-break:break-all;'>"+data.ownername+"</td><td  style='border:0;'>"+transtype+"</td>"+
 													"<td  style='border:0;'>"+paymode+"</td><td  style='border:0;'>"+data.transmoney+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>户号</td><td colspan='3'  style='border:0;'>"+data.accountno+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>交易时间</td><td colspan='3'  style='border:0;'>"+data.transdate+"</td></tr>"+
@@ -107,7 +110,7 @@ define(function (){
 										fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name } ).render() ) ;
 							}) ;
 							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
-							var button = $("<button>确认</button>") ;
+							var button = $("<button class='confirm-button'>确认</button>") ;
 							button.on("click" , function(){
 										$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
 							}) ;

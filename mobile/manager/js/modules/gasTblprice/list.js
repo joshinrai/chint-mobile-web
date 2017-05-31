@@ -1,9 +1,15 @@
 define(function (){
 　　　　var list = function (){
-			
+					var radioPlugin = ChintPlugins.radioPlugin ;
+					var datetimepickerPlugin = ChintPlugins.datetimepickerPlugin ;
+					var paramData = { filterPanel : {
+																collasibleRadios : [{data : [ {text : "全部" , id : "" } , {text : "未启用" , id : "0" } , {text : "已启用" , id : "1" }] , 
+																								options : {title:'状态' ,  id:'state' , height : '8.2em' }}] 
+												}} ;
+												
 					//获取table数据
 					var tableDataHandle = function(params){
-							$(this).customAjax(''+config.basePath+config.getTblPrice , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.getTblPrice , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
 										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#priceManageSpan'),data,{pageCount:2}).render(renderTblOptionTable) ;
@@ -32,6 +38,10 @@ define(function (){
 									}
 									var floatflag = String(data.floatflag) ;
 									floatflag = "1" === floatflag ? "按人数浮动" : "不浮动" ;
+									var state = data.state ;
+									state = state > 0 ? "已启用" : "未启用" ;
+									var expire = data.expire ;
+									expire = 1 == expire ? "已过期" : "未过期" ;
 									var tr = $("<tr><td  style='border:0;'>"+data.title+"</td><td  style='border:0;'>"+ pricemode +"</td><td  style='border:0;'>"+floatflag+
 													"</td><td  style='border:0;'>"+data.stepamount+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>实施用户类型</td><td colspan='3' style='border:0;'>"+data.customerTypeNames+"</td></tr>"+
@@ -50,8 +60,8 @@ define(function (){
 													"五阶计价气量</td><td style='border:0;'>"+$.parseVoidValue(data.step5)+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>人均浮动气量</td><td style='border:0;'>"+data.floatgas+"</td><td  style='font-weight:bold ;border:0;'>"+
 													"发布人</td><td style='border:0;'>"+data.username+"</td></tr>"+
-													"<tr><td  style='font-weight:bold ;border:0;'>当前状态</td><td style='border:0;'>"+data.state+"</td><td  style='font-weight:bold ;border:0;'>"+
-													"生效状态</td><td style='border:0;'>"+data.expire+"</td></tr>"+
+													"<tr><td  style='font-weight:bold ;border:0;'>当前状态</td><td style='border:0;'>"+state+"</td><td  style='font-weight:bold ;border:0;'>"+
+													"生效状态</td><td style='border:0;'>"+expire+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;'>生成时间</td><td colspan='3'>"+data.createdate+"</td></tr>"+
 													"<tr/>") ;
 									tr.each(function(index){
@@ -67,7 +77,7 @@ define(function (){
 					//显示推送结果
 					var showPushResult = function(){
 							var params ={ priceid : $(this).attr("priceid")} ;
-							$(this).customAjax(''+config.basePath+config.getPricePushInfo , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.getPricePushInfo , params , function(flag , data){
 									data.total = !data.total ? data.rows.length : data.total ;
 									if('success' === flag){
 											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#pushResultSpan'),data,{pageCount:5}).render(renderPushResultTable) ;
@@ -88,9 +98,11 @@ define(function (){
 							data.rows.forEach(function(data,index){
 									var createdate = formatTime( $.parseVoidValue(data.createdate) ) ;
 									var senddate = formatTime( $.parseVoidValue(data.senddate) ) ;
+									var sendflag = data.sendflag ;
+									sendflag = sendflag > 0 ? "已下发" : "未下发" ;
 									var tr = $("<tr><td  style='border:0;'>"+data.zonename+"</td><td  style='border:0;'>"+ data.devicecode +"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>表具名称</td><td style='border:0;'>"+$.parseVoidValue(data.devicename)+"</td></tr>"+
-													"<tr><td  style='font-weight:bold ;border:0;'>下发状态</td><td style='border:0;'>"+$.parseVoidValue(data.sendflag)+"</td></tr>"+
+													"<tr><td  style='font-weight:bold ;border:0;'>下发状态</td><td style='border:0;'>"+sendflag+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>推送时间</td><td style='border:0;'>"+createdate+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;'>下发时间</td><td>"+senddate+"</td></tr>"+
 													"<tr/>") ;
@@ -115,8 +127,12 @@ define(function (){
 					var renderFilterPanel = function(){
 							var fragment = document.createDocumentFragment();
 							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
-							
-							var button = $("<button>确认</button>") ;
+							var startTime = datetimepickerPlugin.init( { labelName : "生效时间" , name : "transdate_start" } ).render() ;
+							var endTime = datetimepickerPlugin.init( { labelName : "截止时间" , name : "transdate_end" } ).render() ;
+							fragment.appendChild(startTime) ;
+							fragment.appendChild(endTime) ;
+							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
+							var button = $("<button class='confirm-button'>确认</button>") ;
 							fragment.appendChild(button[0]) ;
 							filterInner.append(fragment).trigger("create") ;
 					}

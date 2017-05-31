@@ -83,7 +83,7 @@ define(function (){
 							paramData.filterPanel.inputs.forEach(function(data , index){
 										fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name } ).render() ) ;
 							}) ;
-							var button = $("<button>确认</button>") ;
+							var button = $("<button class='confirm-button'>确认</button>") ;
 							fragment.appendChild(button[0]) ;
 							filterInner.append(fragment).trigger("create") ;
 					}

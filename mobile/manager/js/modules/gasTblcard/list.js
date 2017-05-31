@@ -27,7 +27,7 @@ define(function (){
 					//组件动态数据列表
 					var collapsibleDataHandle = function(){
 							//选择区域数据列表
-							$(this).customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+							$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var zoneTree = $("#filterZoneTree").empty() ;
 										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'区域选择' ,  id:'zoneID' , height : '8.2em' }).radioIconsRender( ) ;
 										zoneTree.append(filterPlugin) ;
@@ -38,7 +38,7 @@ define(function (){
 					//table数据处理
 					var tableDataHandle = function(params){
 							//添加table数据
-							$(this).customAjax(''+config.basePath+config.gasTblcardDataList , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.gasTblcardDataList , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
 										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTblOptionTable) ;
@@ -67,8 +67,8 @@ define(function (){
 													"<ul class='ui-grid-b'>"+
 													//"<li class='ui-block-a'><button class='ui-btn ui-icon-edit ui-btn-icon-left' data-icon='edit'>发卡</button></li>"+
 													//"<li class='ui-block-b'><button class='ui-btn ui-icon-recycle ui-btn-icon-left' data-icon='recycle'>补卡</button></li>"+
-													"<li class='ui-block-a'><button class='ui-btn ui-icon-forbidden ui-btn-icon-left' data-icon='forbidden'>"+
-															"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='border:0;padding:0;' aria-haspopup='true' aria-owns='modifyPopup' aria-expanded='false' class='ui-link'>挂失/解挂</a>"+
+													"<li class='ui-block-a'><button class='ui-btn ui-icon-forbidden ui-btn-icon-left orange-4' data-icon='forbidden'>"+
+															"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='border:0;padding:0;' aria-haspopup='true' aria-owns='modifyPopup' aria-expanded='false' class='ui-link orange-4'>挂失/解挂</a>"+
 													"</button></li>"+
 													//"<li class='ui-block-d'><button class='ui-btn ui-icon-delete ui-btn-icon-left' data-icon='delete' >"+
 															//"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='border:0;padding:0;' aria-haspopup='true' aria-owns='modifyPopup' aria-expanded='false' class='ui-link'>回收</a>"+
@@ -94,7 +94,7 @@ define(function (){
 							}) ;
 							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
 							fragment.appendChild($("<div id='filterZoneTree'/>")[0]) ;	//区域列表树
-							var button = $("<button>确认</button>") ;
+							var button = $("<button  class='confirm-button'>确认</button>") ;
 							button.on("click" , function(){
 										$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
 							}) ;
@@ -129,7 +129,7 @@ define(function (){
 									var params = {} ;
 									params.accountID = userData.accountID ;
 									params.deviceID = userData.deviceID ;
-									$(this).customAjax(''+config.basePath+config.gasTblcardUserCard , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.gasTblcardUserCard , params , function(flag , data){
 											if('success' === flag){
 													var cardData =  data.data ;
 													if(cardData.runMode == 0){//气量表
@@ -155,7 +155,7 @@ define(function (){
 							var button = $("<button>补卡</button>") ;
 							button.on("click" , function(){
 									var params = JSON.parse($(this).attr("ids")) ;
-									/*$(this).customAjax(''+config.basePath+config.gasTblcardUserCard , params , function(flag , data){
+									/*$.customAjax(''+config.basePath+config.gasTblcardUserCard , params , function(flag , data){
 									
 									}) ;*/
 									console.log("this is button click ..." , params) ;
@@ -206,7 +206,7 @@ define(function (){
 							var confirmLabel = popup.find("a")[0] ;
 							$( confirmLabel ).off("click") ; //重复操作点击挂失或者解挂会导致该按钮绑定过多click事件
 							$(confirmLabel).on( "click" , function(){
-									$(this).customAjax(''+config.basePath+config.lossReport , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.lossReport , params , function(flag , data){
 												if('success' === flag){
 														$.fadeInPlugin( loseFlag + "成功!") ;
 												}else{

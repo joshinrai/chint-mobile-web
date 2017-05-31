@@ -41,7 +41,7 @@ define(function (){
 					//组件动态数据列表
 					var collapsibleDataHandle = function(){
 							//选择区域数据列表
-							$(this).customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+							$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var zoneTree = $("#filterZoneTree").empty() ;
 										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'区域选择' ,  id:'zoneid' , height : '8.2em' }).radioIconsRender( ) ;
 										zoneTree.append(filterPlugin) ;
@@ -79,7 +79,7 @@ define(function (){
 					//table数据处理
 					var tableDataHandle = function(params){
 							//添加table数据
-							$(this).customAjax(''+config.basePath+config.accountInfoDataList , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.accountInfoDataList , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
 										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTblOptionTable) ;
@@ -93,7 +93,7 @@ define(function (){
 							var optionTable = $(chintBodyMain).find('table tbody') ;
 							optionTable.empty() ;//先清空table中的内容再渲染table
 							data.rows.forEach(function(data,index){
-									var tr= $("<tr><td  style='border:0;'>"+data.ownername +"</td><td  style='border:0;'>"+$.parseTribleValue(data.state , "开户" , "停户" , "销户")+
+									var tr= $("<tr><td  style='border:0;word-break:break-all;'>"+data.ownername +"</td><td  style='border:0;'>"+$.parseTribleValue(data.state , "开户" , "停户" , "销户")+
 													"</td><td  style='border:0;'>"+data.typename+"</td><td  style='border:0;'>"+data.pidcardtypename+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>户号</td><td colspan='3' style='border:0;'>"+data.accountno+"</td></tr>"+
 													"<tr><td  style='font-weight:bold ;border:0;'>证件号码</td><td colspan='3' style='border:0;'>"+data.pidcardno+"</td></tr>"+
@@ -104,21 +104,21 @@ define(function (){
 													"<tr><td style='font-weight:bold ;border:0;'>微信号</td><td colspan='3' style='border:0;'>"+$.parseVoidValue(data.micromsgno)+"</td><tr>"+
 													"<td colspan='4'>"+
 													"<div role='navigation' class='ui-navbar' data-role='navbar' data-iconpos='left'>"+
-															"<ul class='ui-grid-a'><li class='ui-block-a'><button class='ui-btn ui-icon-edit ui-btn-icon-left green-3' data-icon='edit'>修改账户</button></li>"+
-															"<li class='ui-block-b'><button class='ui-btn ui-icon-recycle ui-btn-icon-left blue-3' data-icon='recycle' >过户</button></li>"+
-															"<li class='ui-block-c'><button class='ui-btn ui-icon-forbidden ui-btn-icon-left red-3' data-icon='forbidden'>"+
+															"<ul class='ui-grid-a'><li class='ui-block-a'><button class='ui-icon-edit ui-btn-icon-left green-3 btn-border' data-icon='edit'>修改账户</button></li>"+
+															"<li class='ui-block-b'><button class='ui-icon-recycle ui-btn-icon-left blue-3 btn-border' data-icon='recycle' >过户</button></li>"+
+															"<li class='ui-block-c'><button class='ui-icon-forbidden ui-btn-icon-left red-3 btn-border' data-icon='forbidden'>"+
 																	"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='border:0;padding:0;' aria-haspopup='true' aria-owns='modifyPopup' aria-expanded='false' class='ui-link red-3'>停户</a>"+
 															"</button></li>"+
 													"</ul></div>"+
 													"<div role='navigation' class='ui-navbar' data-role='navbar' data-iconpos='left'>"+
-													"<ul class='ui-grid-b'><li class='ui-block-a'><button class='ui-btn ui-icon-check ui-btn-icon-left orange-4' data-icon='check'>"+
+													"<ul class='ui-grid-b'><li class='ui-block-a'><button class='ui-icon-check ui-btn-icon-left orange-4 btn-border' data-icon='check'>"+
 															"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='border:0;padding:0;' aria-haspopup='true' aria-owns='modifyPopup' aria-expanded='false' class='ui-link orange-4'>启户</a>"+
 													"</button></li>"+
-													"<li class='ui-block-b'><button class='ui-btn ui-icon-delete ui-btn-icon-left cyan-4' data-icon='delete' >"+
+													"<li class='ui-block-b'><button class='ui-icon-delete ui-btn-icon-left cyan-4 btn-border' data-icon='delete' >"+
 															"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='border:0;padding:0;' aria-haspopup='true' aria-owns='modifyPopup' aria-expanded='false' class='ui-link cyan-4'>销户</a>"+
 													"</button></li>"+
-													"<li class='ui-block-c'><button class='ui-btn ui-icon-refresh ui-btn-icon-left grey-4' data-icon='refresh'>换表</button></li>"+
-													"<li class='ui-block-d'><button class='ui-btn ui-icon-arrow-d ui-btn-icon-left purple-4' data-icon='arrow-d'>导入</button></li>"+
+													"<li class='ui-block-c'><button class='ui-icon-refresh ui-btn-icon-left grey-4 btn-border' data-icon='refresh'>换表</button></li>"+
+													"<li class='ui-block-d'><button class='ui-icon-arrow-d ui-btn-icon-left purple-4 btn-border' data-icon='arrow-d'>导入</button></li>"+
 													"</ul></div>"+
 													"</td>"+"</tr>") ;
 									tr.each(function(index){
@@ -134,7 +134,7 @@ define(function (){
 					//动态获取用户类型和证件类型数据
 					var getAnimateData = function(){
 							//获取用户类型数据
-							$(this).customAjax(''+config.basePath+config.getTypeCodeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+							$.customAjax(''+config.basePath+config.getTypeCodeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var userType = document.createElement('div') ;
 										var userTypePlugin = radioPlugin.init(null , data , {title:'用户类型' ,  id:'typecode' , height : '8.2em' }).radioIconsRender( ) ;
 										userType.append( userTypePlugin[0] ) ;
@@ -149,7 +149,7 @@ define(function (){
 							}) ;
 							
 							//获取证件类型数据
-							$(this).customAjax(''+config.basePath+config.getPidcardTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+							$.customAjax(''+config.basePath+config.getPidcardTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var cardTypeDiv = document.createElement('div') ;
 										var cardTypePlugin = radioPlugin.init(null , data , {title:'证件类型' ,  id:'pidcardtype' , height : '8.2em' }).radioIconsRender( ) ;
 										cardTypeDiv.append( cardTypePlugin[0] ) ;
@@ -168,7 +168,7 @@ define(function (){
 							//设置新户号	accountno2
 							var accountno2 = modifyInner.find("#accountno2") ;
 							if( 1 == accountno2.length){//当有原户号输入框时才查询户号信息并将户号植入原户号输入框
-										$(this).customAjax(''+config.basePath+config.getAccountNo , {} , function(flag , data){
+										$.customAjax(''+config.basePath+config.getAccountNo , {} , function(flag , data){
 													accountno2.val(data.accountno) ;
 										}) ;
 							}
@@ -212,7 +212,7 @@ define(function (){
 							}) ;
 							setRadioValue(params) ;
 							params.accountid = $(this).attr("accountid") ;
-							$(this).customAjax(''+config.basePath+config.accountInfoSave , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.accountInfoSave , params , function(flag , data){
 										$.fadeInPlugin( data.msg ) ;
 										setTimeout( tableDataHandle( {rows:1000} ) , 500 ) ;
 										setTimeout(function(){ modifyPanel.panel().panel("close") } , 500) ;
@@ -244,7 +244,7 @@ define(function (){
 							paramData.recyclePanel.transferParams.forEach(function(data , index){
 									params[data] = chintInput.filter("#"+data).val() ;
 							}) ;
-							$(this).customAjax(''+config.basePath+config.accountInfoTransfer , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.accountInfoTransfer , params , function(flag , data){
 										$.fadeInPlugin( data.msg ) ;
 										setTimeout( tableDataHandle( {rows:1000} ) , 500 ) ;
 										setTimeout(function(){ modifyPanel.panel().panel("close") } , 500) ;
@@ -255,6 +255,7 @@ define(function (){
 					//修改账户操作
 					var editAccount = function(){
 							modifyModal( this , "修改账户" , paramData.editPanel.inputs , null ,  getAnimateData ) ;
+							return false ;
 					} ;
 					
 					//过户操作
@@ -264,7 +265,7 @@ define(function (){
 					
 					//设置a标签样式不是active的
 					var removeActive = function(){
-							$(this).find("a").removeClass("ui-btn-active")
+							$(this).find("a").removeClass("ui-btn-active") ;
 							return false ;
 					} ;
 					
@@ -301,7 +302,7 @@ define(function (){
 							if( -1 != commonState && commonFlag ){
 									confirmA.on("touchstart" , function(){
 											var accountids = $(this).attr("accountids") ;
-											$(this).customAjax( url , {accountids : accountids } , function(flag , data){
+											$.customAjax( url , {accountids : accountids } , function(flag , data){
 													$.fadeInPlugin(data.msg) ;
 													tableDataHandle() ;
 											}) ;
@@ -394,7 +395,7 @@ define(function (){
 								renderFilterPanel() ;		//渲染过滤条件panel
 								clickFilterConditionEle() ;		//过滤条件标签点击事件
 								collapsibleDataHandle() ;		//获取动态数据列表
-								tableDataHandle({}) ;		//渲染table内容
+								tableDataHandle({rows:10000}) ;		//渲染table内容
 					})()
 　　　　};
 　　　　return {

@@ -225,7 +225,7 @@
 		actionTbody.empty() ;
 		for(var i = 0 ; i < rows.length ; i++){
 			var tr = $("<tr></tr>") ;
-			tr.append("<td>"+rows[i].title+"</td>").append("<td>"+rows[i].updatetime+"</td>") ;
+			tr.append("<td>"+rows[i].title+"</td>").append("<td>"+$.parseVoidValue( rows[i].updatetime )+"</td>") ;
 			tr.appendTo(actionTbody) ;
 		}
 	}

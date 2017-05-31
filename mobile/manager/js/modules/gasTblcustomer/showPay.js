@@ -70,8 +70,8 @@ define(function (){
 												  ((0 == data.usecard) ? "<td/><td colspan='3'>"+
 												  "<div role='navigation' class='ui-navbar' data-role='navbar' data-iconpos='left'>"+
 													"<ul class='ui-grid-a'>"+
-															"<li class='ui-block-a'><button class='ui-btn ui-icon-edit ui-btn-icon-left' data-icon='edit'>充值缴费</button></li>"+
-															"<li class='ui-block-b'><button class='ui-btn ui-icon-recycle ui-btn-icon-left' data-icon='recycle'>补发</button></li>"+
+															"<li class='ui-block-a'><button class='ui-btn ui-icon-edit ui-btn-icon-left green-3' data-icon='edit'>充值缴费</button></li>"+
+															"<li class='ui-block-b'><button class='ui-btn ui-icon-recycle ui-btn-icon-left blue-3' data-icon='recycle'>补发</button></li>"+
 													"</ul></div>"+
 												  "</td>" : "")+
 												  "</tr>") ;
@@ -104,7 +104,7 @@ define(function (){
 							}) ;
 							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
 							fragment.appendChild($("<div id='filterZoneTree'/>")[0]) ;	//区域列表树
-							var button = $("<button>确认</button>") ;
+							var button = $("<button class='confirm-button'>确认</button>") ;
 							button.on("click" , function(){
 										$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
 							}) ;
@@ -266,7 +266,7 @@ define(function (){
 							modifyInner.empty() ;
 							var fragment = document.createDocumentFragment();
 							(1 == userdata.runmode) ? amountPanel( fragment ) :  gasMeter(fragment) ;//根据runmode判断是金额表还是气量表
-							var button = $("<button>确定</button>") ;
+							var button = $("<button class='confirm-button'>确定</button>") ;
 							button.on( "click" , rechargeConfirm ) ;
 							fragment.appendChild(button[0]) ;
 							modifyInner.append(fragment).trigger("create") ;
@@ -331,7 +331,7 @@ define(function (){
 										 cardType : valueParse( userdata.cardType ) , chargeTimes : valueParse( userdata.chargeTimes ) ,runmode : valueParse( userdata.runmode ) ,
 										 balance : valueParse( userdata.balance ) , balancegas : valueParse( userdata.balancegas ) , transmoney : valueParse( userdata.transmoney ) ,
 										 gasamount : valueParse( userdata.gasamount )} ;
-							var button = $("<button>确定</button>") ;
+							var button = $("<button class='confirm-button'>确定</button>") ;
 							button.on( "click" , reissueConfirm) ;
 							button.attr( "reIssueParams" , JSON.stringify(reIssueParams)) ;
 							fragment.appendChild(button[0]) ;
