@@ -452,4 +452,4 @@
 	//最新报警定时刷新
 	namespace.newsAlertInterval = setInterval(newestAlert,10000) ;
 
-})( window.ChintPlugins )
+})( window.chintPlugins )

@@ -1,4 +1,4 @@
 (function(namespace) {
-   namespace.ChintPlugins = {};
+   namespace.chintPlugins = {};
 })(window);
   

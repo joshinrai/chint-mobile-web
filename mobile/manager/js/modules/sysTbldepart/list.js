@@ -3,14 +3,14 @@ define(function (){
 						//营业厅数据列表
 						var collapsibleDataHandle = function(){
 								//营业厅数据
-								$(this).customAjax(''+config.basePath+config.sysTbldepartDataList , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTbldepartDataList , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var filterLobby = $("#filterLobbyDataList").empty() ;
-										var filterPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'营业厅' ,  id:'allLobbyFilter' , height : '200px' }).legendRender( ) ;
+										var filterPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'营业厅' ,  id:'allLobbyFilter' , height : '200px' }).legendRender( ) ;
 										filterLobby.append(filterPlugin) ;
 										filterPanel.trigger("create") ;
 										
 										var modifyLobby = $("#modifyLobbyDataList").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'上级营业厅' ,  id:'allLobbyFilter-modify' , height : '200px' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'上级营业厅' ,  id:'allLobbyFilter-modify' , height : '200px' }).radioIconsRender( ) ;
 										modifyLobby.append(modifyPlugin) ;
 										modifyPanel.trigger("create") ;
 								}) ;
@@ -42,10 +42,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.sysTblDepartDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTblDepartDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDepartTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDepartTable) ;
 										}
 								}) ;
 						}
@@ -70,7 +70,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:3,tds:[1,3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:3,tds:[1,3]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -90,7 +90,7 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -116,12 +116,12 @@ define(function (){
 						var filterPanelQuery = function(){
 									var params = {} ;
 									params.rows = 1000 ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var chintInput = filterInner.find('.chintInput') ;
 									chintInput.each(function(index , data){
 											params[data.name] = data.value ;
 									}) ;
-									params.departmentid = ChintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterLobbyDataList .ui-checkbox-on')) ;
+									params.departmentid = chintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterLobbyDataList .ui-checkbox-on')) ;
 									tableDataHandle(params) ;
 									filterPanel.panel().panel("close") ;
 						}
@@ -132,12 +132,12 @@ define(function (){
 													modifyInner.find('label')[0].textContent = '添加' ;
 													modifyInner.find(".hintLabel").hide() ;
 													modifyInner.find(".chintInput").val("") ;
-													ChintPlugins.radioPlugin.reRenderRadioIcons( modifyInner.find("#modifyLobbyDataList") , "") ;
+													chintPlugins.radioPlugin.reRenderRadioIcons( modifyInner.find("#modifyLobbyDataList") , "") ;
 													modifyInner.find("button").attr("departmentid" , "") ;
 													modifyPanel.panel().panel("open");
 									}) ;
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									var dataArray = [{label:'营业厅名',name:'departmentname'} , {label:'地址',name:'address'} , {label:'联系人',name:'contactor'} , {label:'固定电话',name:'telno'},
@@ -168,7 +168,7 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var label = modifyInner.find(".hintLabel") ;
 									label.show() ;
 									var params = {} ;
@@ -184,7 +184,7 @@ define(function (){
 									var button = modifyInner.find("button") ;
 									var departmentid = button.attr("departmentid") ;
 									params.departmentid = departmentid ? departmentid : "" ;
-									$(this).customAjax(''+config.basePath+config.sysTblDepartSave , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.sysTblDepartSave , params , function(flag , data){
 												var lable = modifyInner.find(".ui-panel-inner .hintLabel") ;
 												$.hintLabel(label , data.msg , "green") ;
 												setTimeout( tableDataHandle( {rows:1000} ) , 500 ) ;
@@ -194,7 +194,7 @@ define(function (){
 						
 						//修改操作
 						var modifyEvent = function(self){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var userData = JSON.parse(self.parentNode.parentNode.attributes.userData.value) ;
 									modifyPanel.find("label")[0].textContent = "修改" ;
 									var inputs = modifyPanel.find('.chintInput') ;

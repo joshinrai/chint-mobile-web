@@ -1,8 +1,8 @@
 define(["gasTblcustomer/list"] ,function( accountManage ){
 		var list = function(){
-				var inputPlugin = ChintPlugins.inputPlugin ;
-				var radioPlugin = ChintPlugins.radioPlugin ;
-				var tablePlugin = ChintPlugins.tablePlugin ;
+				var inputPlugin = chintPlugins.inputPlugin ;
+				var radioPlugin = chintPlugins.radioPlugin ;
+				var tablePlugin = chintPlugins.tablePlugin ;
 				var changeConfirmDeviceid = null ;		//当前设备id
 				var changeConfirmAccountid = null ;		//用户id
 				var changeConfirmNewdeviceid = null ;//待换设备id
@@ -35,10 +35,10 @@ define(["gasTblcustomer/list"] ,function( accountManage ){
 					//table数据处理
 					var tableDataHandle = function(params){
 							//添加table数据	
-							$(this).customAjax(''+config.basePath+config.searchDeviceByZone , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.searchDeviceByZone , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTblOptionTable) ;
 									}
 							}) ;
 					} ;
@@ -62,7 +62,7 @@ define(["gasTblcustomer/list"] ,function( accountManage ){
 								callback({} , domId) ;
 								return ;						
 							} ;
-							$(this).customAjax(url , params , function(flag , data){
+							$.customAjax(url , params , function(flag , data){
 									callback(data.data , domId) ;
 							}) ;
 					} ;
@@ -133,7 +133,7 @@ define(["gasTblcustomer/list"] ,function( accountManage ){
 											var tr = $(this).parent().find("tr[name='"+name+"']") ;
 											var deviceid = JSON.parse($(tr[tr.length-1]).attr("userdata")) ;
 											changeConfirmNewdeviceid = deviceid ;
-											$(this).customAjax(''+config.basePath+config.deviceDetail , { deviceid : deviceid } , function(flag , userData){
+											$.customAjax(''+config.basePath+config.deviceDetail , { deviceid : deviceid } , function(flag , userData){
 														var tds = $(chintBodyMain).find("#replaceDeviceTable tbody tr td") ;
 														changeConfirmMode = userData.data.chargemode ;
 														tds.each(function(index , data){
@@ -199,7 +199,7 @@ define(["gasTblcustomer/list"] ,function( accountManage ){
 										return false ;
 									}
 							}
-							$(this).customAjax(''+config.basePath+config.changeDeviceConfirm , oParams  , function(flag , data){
+							$.customAjax(''+config.basePath+config.changeDeviceConfirm , oParams  , function(flag , data){
 									if("success" ==  flag ){
 											$.fadeInPlugin("换表操作成功") ;
 									}else if( "error" == flag){

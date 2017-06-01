@@ -18,10 +18,7 @@
 				{"title":"月冻结数据","value":"/view/data/gasFrozenDataMonthly.jsp"}
 		]},
 		{"title":"数据报表","value":[
-				{"title":"营业厅购气明细表","value":"/reportDetail/purchaseGasDetail.do"},
-				{"title":"单区域逐日报表","value":"/view/report/gasDailyReportByZone.jsp"},
-				{"title":"单区域逐月报表","value":"/view/report/gasMonthlyReportByZone.jsp"},
-				{"title":"区域月报表","value":"/view/report/gasPeriodReportByZone.jsp"}
+				{"title":"营业厅购气明细表","value":"/reportDetail/purchaseGasDetail.do"}
 		]},
 		{"title":"报警查询","value":[
 				{"title":"事件报警","value":"/gasTblalert/list.do"}
@@ -38,8 +35,6 @@
 				{"title":"表具远程配置","value":"/baseTbldevice/deviceRemoteConfig.do"},
 				{"title":"表具批量设置","value":"/view/sys/deviceGroupSetting.jsp"},
 				{"title":"设备型号管理","value":"/sysTbldevicetype/list.do"},
-				{"title":"集中器管理","value":"/baseTblconcentrator/list.do"},
-				{"title":"集中器远程配置","value":"/baseTblconcentrator/concentratorRemoteConfig.do"},
 				{"title":"GIS定位","value":"/view/gis/mapLocation.jsp"},
 				{"title":"新闻编辑","value":"/issueTblnews/list.do"},
 				{"title":"日志管理","value":"/sysTbllog/list.do"}

@@ -1,6 +1,7 @@
 define(function (){
 　　　　var operateLog = function (){
-					var inputPlugin = ChintPlugins.inputPlugin ;
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var datetimepickerPlugin = chintPlugins.datetimepickerPlugin ;
 					var paramData = {
 							filterPanel : { 
 															inputs : [ {label:'户号',name:'accountNo'} , {label:'用户名',name:'ownerName'} , {label:'表号',name:'deviceCode'} ,
@@ -10,10 +11,10 @@ define(function (){
 
 					//获取操作日志数据
 					var tableDataHandle = function(params){
-							$(this).customAjax(''+config.basePath+config.getDataListLogs , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.getDataListLogs , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#opreateLogSpan'),data,{pageCount:5}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#opreateLogSpan'),data,{pageCount:5}).render(renderTblOptionTable) ;
 									}
 							}) ;
 					}
@@ -70,7 +71,7 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
 									}) ;
 							}) ;
 							optionTable.append(fragment).trigger("create") ;
@@ -80,10 +81,17 @@ define(function (){
 					var renderFilterPanel = function(){
 							var fragment = document.createDocumentFragment();
 							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
+							var startTime = datetimepickerPlugin.init( { labelName : "生效时间" , name : "transdate_start" } ).render() ;
+							var endTime = datetimepickerPlugin.init( { labelName : "截止时间" , name : "transdate_end" } ).render() ;
+							fragment.appendChild(startTime) ;
+							fragment.appendChild(endTime) ;
 							paramData.filterPanel.inputs.forEach(function(data , index){
 										fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name } ).render() ) ;
 							}) ;
 							var button = $("<button class='confirm-button'>确认</button>") ;
+							button.on("click" , function(){
+										$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
+							}) ;
 							fragment.appendChild(button[0]) ;
 							filterInner.append(fragment).trigger("create") ;
 					}
@@ -109,7 +117,7 @@ define(function (){
 								  chintMainInnerHtml += '</table>' ;
 								  chintMainInnerHtml += '<span id="opreateLogSpan" style="float:right;"></span>'  ;
 							chintBodyMain.append(chintMainInnerHtml).trigger("create") ;
-							tableDataHandle( {} ) ;		//渲染table
+							tableDataHandle( {rows:10000} ) ;		//渲染table
 							renderFilterPanel() ;		//渲染过滤条件panel
 							clickFilterConditionEle() ;		//过滤条件标签点击事件
 					})()

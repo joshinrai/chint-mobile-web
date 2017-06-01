@@ -27,10 +27,10 @@
 							element.attributes.total = options.total ;//使用total作为tr的attributes来设置点击时颜色变化效果的总行数
 							if(0 == index){
 								$(element).on('touchstart',function(){
-										ChintPlugins.tablePlugin.firstTrClickEvent(this,'blanchedalmond')
+										chintPlugins.tablePlugin.firstTrClickEvent(this,'blanchedalmond')
 								}) ;
 								$(element).on('touchend',function(){
-										ChintPlugins.tablePlugin.firstTrClickEvent(this,'initial')
+										chintPlugins.tablePlugin.firstTrClickEvent(this,'initial')
 								}) ;
 							}else if(index < options.total){
 								var tdArray = [] ;
@@ -38,10 +38,10 @@
 										tdArray.push(element.childNodes[options.tds[i]]) ;
 								}
 								$(tdArray).on('touchstart',function(){
-										ChintPlugins.tablePlugin.otherTrClickEvent(this,'blanchedalmond') ;
+										chintPlugins.tablePlugin.otherTrClickEvent(this,'blanchedalmond') ;
 								}) ;
 								$(tdArray).on('touchend',function(){
-										ChintPlugins.tablePlugin.otherTrClickEvent(this,'initial') ;
+										chintPlugins.tablePlugin.otherTrClickEvent(this,'initial') ;
 								}) ;
 							}
 			      },
@@ -81,4 +81,4 @@
 		  
 		  namespace.tablePlugin = new tablePlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

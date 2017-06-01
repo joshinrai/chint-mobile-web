@@ -33,7 +33,7 @@
 			      },
 			      //绘制输入框列表
 			      renderInputFragment : function(data , fragment){
-			      				var inputPlugin = ChintPlugins.inputPlugin ;
+			      				var inputPlugin = chintPlugins.inputPlugin ;
 			      				data.forEach(function(data , index){
 											fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name} ).render() ) ;
 								}) ;
@@ -60,4 +60,4 @@
 		  
 		  namespace.inputPlugin = new inputPlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

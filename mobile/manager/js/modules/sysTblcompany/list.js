@@ -25,10 +25,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.sysTblCompanyDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTblCompanyDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblCompanyTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblCompanyTable) ;
 										}
 								}) ;
 						}
@@ -56,7 +56,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:1,tds:[1]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:1,tds:[1]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -76,7 +76,7 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -99,7 +99,7 @@ define(function (){
 						var filterPanelQuery = function(){
 									var params = {} ;
 									params.rows = 1000 ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var chintInput = filterInner.find('.chintInput') ;
 									chintInput.each(function(index , data){
 											params[data.name] = data.value ;
@@ -117,15 +117,15 @@ define(function (){
 													modifyInner.find("button").attr("companyid" , "") ;
 													modifyPanel.panel().panel("open");
 									}) ;
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									var dataArray = [{label:'公司全称',name:'companyname'} , {label:'公司简称',name:'companyname2'}] ;
 									dataArray.forEach(function(data , index){
 												fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name , type : data.type } ).render() ) ;
 									}) ;
-									var textArea = ChintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
+									var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
 									fragment.appendChild(textArea) ;
 									var hintLabel = $("<label style='color:red;' class='hintLabel'></label>") ;
 									fragment.appendChild(hintLabel[0]) ;
@@ -137,7 +137,7 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var label = modifyInner.find(".hintLabel") ;
 									label.show() ;
 									var params = {} ;
@@ -158,7 +158,7 @@ define(function (){
 									var button = modifyInner.find("button") ;
 									var companyid = button.attr("companyid") ;
 									params.companyid = companyid ? companyid : "" ;
-									$(this).customAjax(''+config.basePath+config.sysTblCompanySave , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.sysTblCompanySave , params , function(flag , data){
 												var lable = modifyInner.find(".ui-panel-inner .hintLabel") ;//$(chintBodyMain).parent().find('#modifyPanel .ui-panel-inner .hintLabel') ;
 												$.hintLabel(label , data.msg , "green") ;
 												setTimeout( tableDataHandle( {rows:1000} ) , 500 ) ;
@@ -168,7 +168,7 @@ define(function (){
 						
 						//修改操作
 						var modifyEvent = function(self){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var userDatas = self.parentNode.parentNode.attributes ;
 									var userData = JSON.parse( parseJSONData(userDatas) );
 									modifyPanel.find("label")[0].textContent = "修改" ;

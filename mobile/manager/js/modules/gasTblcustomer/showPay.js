@@ -1,7 +1,7 @@
 define(function (){
 　　　　var showPay = function (){
-					var inputPlugin = ChintPlugins.inputPlugin ;
-					var radioPlugin = ChintPlugins.radioPlugin ;
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var radioPlugin = chintPlugins.radioPlugin ;
 					var paramData = { filterPanel : {
 																inputs : [ {label:'用户户号',name:'accountno'} , {label:'用户姓名',name:'ownername'} , 
 																				{label:'证件号码',name:'pidcardno'} , {label:'手机',name:'mobileno'}] ,
@@ -36,10 +36,10 @@ define(function (){
 					var tableDataHandle = function(params){
 							loading.show() ;
 							//添加table数据
-							$(this).customAjax(''+config.basePath+config.dataListPay , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.dataListPay , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
 									}
 									loading.hide() ;
 							}) ;
@@ -77,7 +77,7 @@ define(function (){
 												  "</tr>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:9,tds:[1,3]} , true) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:9,tds:[1,3]} , true) ;//行点击效果
 									}) ;
 									$(tr[tr.length-1]).attr("userData" , JSON.stringify(data) ) ;
 									navigationOperation(tr) ;
@@ -129,7 +129,7 @@ define(function (){
 									$.fadeInPlugin("请输入充值金额/气量.") ;
 									return ;
 							}
-							$(this).customAjax(''+config.basePath+config.saveBalance , rechargeParams , function(flag , data){
+							$.customAjax(''+config.basePath+config.saveBalance , rechargeParams , function(flag , data){
 										setTimeout( function(){ modifyPanel.panel().panel("close") } , 500) ;
 										tableDataHandle({rows:1000}) ;
 										$.fadeInPlugin( data.msg ) ;
@@ -167,7 +167,7 @@ define(function (){
 									setModifyTable() ;
 									return false ;
 							}
-							$(this).customAjax(''+config.basePath+config.calculateGasMoney , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.calculateGasMoney , params , function(flag , data){
 									setModifyTable(data.data) ;
 							}) ;
 					} ;
@@ -198,7 +198,7 @@ define(function (){
 							var minamount = null ;
 							var balance = null ;
 							var gasamount = null ;
-							$(this).customAjax(''+config.basePath+config.getAccountPayId , {accountid : userdata.accountid , deviceid : userdata.deviceid } , function(flag , data){
+							$.customAjax(''+config.basePath+config.getAccountPayId , {accountid : userdata.accountid , deviceid : userdata.deviceid } , function(flag , data){
 									maxamount = data.data.maxamount;//最大充值限额
 									minamount = data.data.minamount;//最小充值限额	
 									balance = data.data.balance;//账户剩余金额
@@ -243,7 +243,7 @@ define(function (){
 									$.floatNumberInput( transmoney ) ;
 									$.floatNumberInput( gasamount ) ;
 									$.choseOnlyOne(  gasamount , transmoney ) ;//气量和金额只能有一个可以进行输入
-									$(this).customAjax(''+config.basePath+config.getGasMeterPrice , {accountid : userdata.accountid , deviceid : userdata.deviceid } , function(flag , data){
+									$.customAjax(''+config.basePath+config.getGasMeterPrice , {accountid : userdata.accountid , deviceid : userdata.deviceid } , function(flag , data){
 												var trData = data.data ;
 												var total = parseInt( trData.stepAmount ) ;
 												var fragment = document.createDocumentFragment();
@@ -287,7 +287,7 @@ define(function (){
 										$.fadeInPlugin("请填写补气金额/气量") ;
 										return ;
 							}							
-							$(this).customAjax(''+config.basePath+config.supplementGas , reIssueParams , function(flag , data){
+							$.customAjax(''+config.basePath+config.supplementGas , reIssueParams , function(flag , data){
 										setTimeout( function(){ modifyPanel.panel().panel("close") } , 500) ;
 										tableDataHandle({rows:1000}) ;
 										$.fadeInPlugin( data.msg ) ;

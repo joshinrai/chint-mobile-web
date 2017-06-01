@@ -60,7 +60,7 @@
 						
 						span.find('a').on('click',function(){
 							var self = this ;
-							ChintPlugins.pageBreakPlugin.aClick(self) ;
+							chintPlugins.pageBreakPlugin.aClick(self) ;
 						}) ;
 			      },
 			      
@@ -91,7 +91,7 @@
 							var element = $('<a class="pagingCommon"><strong>'+(parseInt(spanPage)-2)+'</strong></a>') ;
 							element.on('click',function(){
 										var self = this ;
-										ChintPlugins.pageBreakPlugin.aClick(self) ;
+										chintPlugins.pageBreakPlugin.aClick(self) ;
 							}) ;
 							self.pagingLogic(pagePitched,doublePrev,prev,next,doubleNext,spanPage,lastPage,apostrophe,element,false) ;
 							if(1 != spanPage){
@@ -102,7 +102,7 @@
 							var element = $('<a class="pagingCommon"><strong>'+(parseInt(spanPage)+2)+'</strong></a>') ;
 							element.on('click',function(){
 										var self = this ;
-										ChintPlugins.pageBreakPlugin.aClick(self) ;
+										chintPlugins.pageBreakPlugin.aClick(self) ;
 							}) ;
 							self.pagingLogic(pagePitched,doublePrev,prev,next,doubleNext,spanPage,lastPage,apostrophe,element,true) ;
 							if(spanPage != lastPage){
@@ -163,7 +163,7 @@
 									var newPrev = $('<a class="pagingCommon"><strong>'+(selfInnerText-1)+'</strong></a>') ;
 									newPrev.on('click',function(){
 											var self = this ;
-											ChintPlugins.pageBreakPlugin.aClick(self) ;
+											chintPlugins.pageBreakPlugin.aClick(self) ;
 									}) ;
 									if(selfInnerText == (lastPage-2) ) $(selfElement).before(newPrev[0]) ;
 									if(selfInnerText == (lastPage-3)) {
@@ -185,7 +185,7 @@
 									var newNext = $('<a class="pagingCommon"><strong>'+(parseInt(selfInnerText)+1)+'</strong></a>') ;
 									newNext.on('click',function(){
 											var self = this ;
-											ChintPlugins.pageBreakPlugin.aClick(self) ;
+											chintPlugins.pageBreakPlugin.aClick(self) ;
 									}) ;
 									if(selfInnerText == 3 ) $(selfElement).after(newNext[0]) ;
 									if(selfInnerText == 4) {
@@ -216,7 +216,7 @@
 									var newPrev = $('<a class="pagingCommon"><strong>'+(lastPage-2)+'</strong></a><a class="pagingCommon"><strong>'+(lastPage-1)+'</strong></a>') ;
 									newPrev.on('click',function(){
 											var self = this ;
-											ChintPlugins.pageBreakPlugin.aClick(self) ;
+											chintPlugins.pageBreakPlugin.aClick(self) ;
 									}) ;
 									while(true){
 											$(selfElement).prev().remove() ;
@@ -229,7 +229,7 @@
 									var newNext = $('<a class="pagingCommon"><strong>'+2+'</strong></a><a class="pagingCommon"><strong>'+3+'</strong></a>') ;
 									newNext.on('click',function(){
 											var self = this ;
-											ChintPlugins.pageBreakPlugin.aClick(self) ;
+											chintPlugins.pageBreakPlugin.aClick(self) ;
 									}) ;
 									while(true){
 											$(selfElement).next().remove() ;
@@ -250,4 +250,4 @@
 		  
 		  namespace.pageBreakPlugin = new pageBreakPlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

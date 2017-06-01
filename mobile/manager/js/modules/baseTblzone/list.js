@@ -3,22 +3,22 @@ define(function (){
 						//区域名称数据列表
 						var collapsibleDataHandle = function(){
 								//区域名称数据
-								$(this).customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var filterLobby = $("#filterZoneTreeDataList").empty() ;
-										var filterPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'区域名称' ,  id:'allZoneTreeFilter' , height : '200px' }).legendRender( ) ;
+										var filterPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'区域名称' ,  id:'allZoneTreeFilter' , height : '200px' }).legendRender( ) ;
 										filterLobby.append(filterPlugin) ;
 										filterPanel.trigger("create") ;
 										
 										var modifyZoon = $("#modifyZoonDataList").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'上级区域' ,  id:'allZoneTreeModify' , height : '200px' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'上级区域' ,  id:'allZoneTreeModify' , height : '200px' }).radioIconsRender( ) ;
 										modifyZoon.append(modifyPlugin) ;
 										modifyPanel.trigger("create") ;
 								}) ;
 								
 								//获取区域代码信息
-								$(this).customAjax(''+config.basePath+config.getZoneCodeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.getZoneCodeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var modifyZoon = $("#modifyUserZoonTree").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'区域代码' ,  id:'allUserZoneTreeModify' , height : '200px' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'区域代码' ,  id:'allUserZoneTreeModify' , height : '200px' }).radioIconsRender( ) ;
 										modifyZoon.append(modifyPlugin) ;
 										modifyPanel.trigger("create") ;
 								}) ;
@@ -50,10 +50,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.baseTblZoneDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblZoneDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblZoneTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblZoneTable) ;
 										}
 								}) ;
 						}
@@ -95,7 +95,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:4,tds:[1 , 3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:4,tds:[1 , 3]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -115,7 +115,7 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -140,12 +140,12 @@ define(function (){
 						var filterPanelQuery = function(){
 									var params = {} ;
 									params.rows = 1000 ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var chintInput = filterInner.find('.chintInput') ;
 									chintInput.each(function(index , data){
 											params[data.name] = data.value ;
 									}) ;
-									params.parentid = ChintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterZoneTreeDataList .ui-checkbox-on')) ;
+									params.parentid = chintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterZoneTreeDataList .ui-checkbox-on')) ;
 									tableDataHandle(params) ;
 									filterPanel.panel().panel("close") ;
 						}
@@ -159,8 +159,8 @@ define(function (){
 													modifyInner.find("button").attr("zoneid" , "") ;
 													modifyPanel.panel().panel("open");
 									}) ;
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									var dataArray = [{label:'区域名称',name:'zonename'} , {label:'经度',name:'longitude'}, {label:'纬度',name:'latitude'}, {label:'地图缩放最小值',name:'minlevel'},
@@ -192,7 +192,7 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var label = modifyInner.find(".hintLabel") ;
 									label.show() ;
 									var params = {} ;
@@ -207,7 +207,7 @@ define(function (){
 									var button = modifyInner.find("button") ;
 									var zoneid = button.attr("zoneid") ;
 									params.zoneid = zoneid ? zoneid : "" ;
-									$(this).customAjax(''+config.basePath+config.baseTblZoneSave , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.baseTblZoneSave , params , function(flag , data){
 												var lable = $(chintBodyMain).parent().find('#modifyPanel .ui-panel-inner .hintLabel') ;
 												$.hintLabel(label , data.msg , "green") ;
 												setTimeout( tableDataHandle( {rows:1000} ) , 500 ) ;
@@ -217,7 +217,7 @@ define(function (){
 						
 						//修改操作
 						var modifyEvent = function(self){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var userData = JSON.parse(self.parentNode.parentNode.attributes.userData.value) ;
 									modifyPanel.find("label")[0].textContent = "修改" ;
 									var inputs = modifyPanel.find('.chintInput') ;

@@ -86,7 +86,7 @@
 	      								thisInput.addClass("radioChecked") ;
 	      								var collapsible = $(this).closest("form").parent().parent() ;
 	      								collapsible.find("h4 a a")[0].textContent = thisLabel[0] ? "("+ thisLabel[0].textContent + ")" : "" ;
-	      								ChintPlugins.radioPlugin.toggleCollapsible(collapsible) ;
+	      								chintPlugins.radioPlugin.toggleCollapsible(collapsible) ;
 			      			}) ;
 			      },
 			      /***
@@ -104,14 +104,14 @@
 			      },
 			      //绘制单行单选框列表
 			      renderDoubleRadio : function( data , fragment ){
-			      					var radioPlugin = ChintPlugins.radioPlugin ;
+			      					var radioPlugin = chintPlugins.radioPlugin ;
 			      					data.forEach(function(data , index){
 												fragment.appendChild(radioPlugin.init( null , data.data  , data.options ).doubleRender()[0])  ;
 									}) ;
 			      },
 			      //绘制下拉单选框列表
 			      renderCollasibleRadio : function( data , fragment ){
-			      					var radioPlugin = ChintPlugins.radioPlugin ;
+			      					var radioPlugin = chintPlugins.radioPlugin ;
 			      					data.forEach(function(data , index){
 												fragment.appendChild(radioPlugin.init( null , data.data  , data.options ).radioIconsRender()[0])  ;
 									}) ;
@@ -175,4 +175,4 @@
 		  
 		  namespace.radioPlugin = new radioPlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

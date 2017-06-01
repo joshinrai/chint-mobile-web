@@ -204,7 +204,7 @@
 				}
 				//清空过滤查询和新增innerPanel内容
 				$.emptyInnerPanel = function(){
-						clearInterval( ChintPlugins.newsAlertInterval ) ;
+						clearInterval( chintPlugins.newsAlertInterval ) ;
 						chintBodyMain.empty() ;
 						filterInner.empty() ;
 						modifyInner.empty() ;
@@ -213,7 +213,7 @@
 				$.queryContext = function(filterInner , filterPanel , tableCallBack , arguments){
 						var params = {} ;
 						params.rows = 1000 ;
-						var radioPlugin = ChintPlugins.radioPlugin ;
+						var radioPlugin = chintPlugins.radioPlugin ;
 						var chintInput = filterInner.find('.chintInput') ;
 						chintInput.each(function(index , data){
 								params[data.name] = data.value ;
@@ -240,7 +240,7 @@
 				}
 				//修改按钮点击事件
 				$.modifyEvent = function(self){
-						var radioPlugin = ChintPlugins.radioPlugin ;
+						var radioPlugin = chintPlugins.radioPlugin ;
 						var userData = JSON.parse(self.parentNode.parentNode.attributes.userData.value) ;
 						modifyPanel.find("label")[0].textContent = "修改" ;
 						var inputs = modifyPanel.find('input') ;
@@ -275,7 +275,7 @@
 								var id = [] ;
 								id.push(param.id) ;
 								//删除操作需要检查当前记录是否存在主外键约束...
-								$(this).customAjax(''+url , {id : id.toString() } , function(flag , data){
+								$.customAjax(''+url , {id : id.toString() } , function(flag , data){
 											callback({rows:1000}) ;
 											console.log("删除信息:" , data.msg) ;
 								}) ;

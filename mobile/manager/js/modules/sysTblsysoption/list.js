@@ -3,9 +3,9 @@ define(function (){
 						
 						//获取系统参数列表
 						var getOptiongroup = function(){
-								$(this).customAjax(''+config.basePath+config.optionGroups , {} , function(flag , data){
+								$.customAjax(''+config.basePath+config.optionGroups , {} , function(flag , data){
 											var filterOptiongroup = filterInner.find("#filterOptiongroup").empty() ;
-											var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'参数组名' ,  id:'menuTree' , height : '200px' }).radioIconsRender( ) ;
+											var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'参数组名' ,  id:'menuTree' , height : '200px' }).radioIconsRender( ) ;
 											filterOptiongroup.append(filterPlugin) ;
 											$(chintBodyMain).parent().find('#filterPanel').trigger("create") ;
 								}) ;
@@ -33,10 +33,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.sysOptionsDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysOptionsDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
 										}
 								}) ;
 						}
@@ -53,7 +53,7 @@ define(function (){
 														"<tr userData="+JSON.stringify({data:data,index:index})+"><td colspan='3'/><td><a style='font-weight:300;'>修改</a></td></tr>") ;
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:2,tds:[1,3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:2,tds:[1,3]}) ;//行点击效果
 										}) ;
 										aTds = tr.find('a') ;
 										//修改
@@ -66,11 +66,11 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find("input").val("") ;
-										ChintPlugins.radioPlugin.reRenderRadioIcons( filterInner.find("#filterOptiongroup") , "" ) ;
+										chintPlugins.radioPlugin.reRenderRadioIcons( filterInner.find("#filterOptiongroup") , "" ) ;
 										filterPanel.panel().panel("open");
 								}) ;
 								var fragment = document.createDocumentFragment();
@@ -92,7 +92,7 @@ define(function (){
 						var filterPanelQuery = function(){
 								var params = {} ;
 								params.rows = 1000 ;
-								var radioPlugin = ChintPlugins.radioPlugin ;
+								var radioPlugin = chintPlugins.radioPlugin ;
 								var chintInput = filterInner.find('.chintInput') ;
 								chintInput.each(function(index , data){
 										params[data.name] = data.value ;
@@ -105,7 +105,7 @@ define(function (){
 						
 						//修改panel内容
 						var renderModifyPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								var fragment = document.createDocumentFragment() ;
 								fragment.appendChild($("<label>")[0]) ;
 								var dataArray = [{label:'参数英文名',name:'optionname' , readonly : true} , {label:'参数中文名',name:'optionnamecn' , readonly : true } ,
@@ -113,7 +113,7 @@ define(function (){
 								dataArray.forEach(function(data , index){
 											fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name , readonly : data.readonly } ).render() ) ;
 								}) ;
-								var textArea = ChintPlugins.textareaPlugin.init( null , {} , {labelName:'说明',id:'description',name:'optiondescription'} ).render() ;
+								var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'说明',id:'description',name:'optiondescription'} ).render() ;
 								fragment.appendChild(textArea) ;
 								var hintLabel = $("<label style='color:red;' class='hintLabel'></label>") ;
 								fragment.appendChild(hintLabel[0]) ;
@@ -125,7 +125,7 @@ define(function (){
 						
 						//修改点击操作
 						var modifyEvent = function(self){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									modifyPanel.find("label")[0].textContent = "修改" ;
 									var userData = JSON.parse(self.parentNode.parentNode.attributes.userData.value) ;
 									var inputs = modifyPanel.find('input') ;
@@ -149,7 +149,7 @@ define(function (){
 									var textArea = modifyInner.find("textarea") ;
 									params.optiondescription = textArea[0].value ;
 									params.id = modifyInner.find("button").attr("dataId") ;
-									$(this).customAjax(''+config.basePath+config.sysOptionsDataModify , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.sysOptionsDataModify , params , function(flag , data){
 												var hintLabel = modifyPanel.find(".hintLabel") ;
 												hintLabel[0].textContent = data.msg  ;
 												hintLabel[0].style.color = "green"  ;

@@ -5,7 +5,7 @@ define(function (){
 						var collapsibleDataHandle = function(){
 								$.customAjax(''+config.basePath+config.getMenuTreeNoEmptys , {} , function(flag , data){
 											var modifyMenuTree = $("#modifyMenuTree").empty() ;
-											var modifyPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'功能权限' ,  id:'menuTree' , height : '200px' }).legendRender( ) ;
+											var modifyPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'功能权限' ,  id:'menuTree' , height : '200px' }).legendRender( ) ;
 											modifyMenuTree.append(modifyPlugin) ;
 											modifyPanel.trigger("create") ;
 								}) ;
@@ -17,7 +17,7 @@ define(function (){
 								$.customAjax(''+config.basePath+config.sysTblroleDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblRoleTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblRoleTable) ;
 										}
 								}) ;
 						}
@@ -36,7 +36,7 @@ define(function (){
 														"</tr>") ;
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:1,tds:[1]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:1,tds:[1]}) ;//行点击效果
 										}) ;
 										aTds = tr.find('a') ;
 										//修改
@@ -54,7 +54,7 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -77,8 +77,8 @@ define(function (){
 						
 						//添加 修改panel内容
 						var renderModifyPanel = function(){
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									var dataArray = [{label:'角色ID',name:'roleid'} , {label:'角色名称',name:'rolename'} , 
@@ -100,7 +100,7 @@ define(function (){
 												modifyInner.find(".hintLabel").hide() ;
 												modifyInner.find(".chintInput").val("") ;
 												$(modifyPanel.find('input')[0]).attr("readOnly" , false) ;
-												//ChintPlugins.collapsiblePlugin.legendreRender( modifyInner.find("#modifyMenuTree") , "" ) ; 重置下拉多选框中的数据
+												//chintPlugins.collapsiblePlugin.legendreRender( modifyInner.find("#modifyMenuTree") , "" ) ; 重置下拉多选框中的数据
 												modifyInner.find("button").attr("dataId" , "") ;
 												modifyPanel.panel().panel("open");
 									}) ;
@@ -122,7 +122,7 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var collapsiblePlugin = ChintPlugins.collapsiblePlugin ;
+									var collapsiblePlugin = chintPlugins.collapsiblePlugin ;
 									var params = {} ;
 									var label = modifyPanel.find(".hintLabel") ;
 									var inputs = modifyPanel.find(".chintInput") ;

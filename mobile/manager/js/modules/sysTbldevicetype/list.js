@@ -1,7 +1,7 @@
 define(function (){
 　　　　var list = function (){
-						var inputPlugin = ChintPlugins.inputPlugin ;
-						var radioPlugin = ChintPlugins.radioPlugin ;
+						var inputPlugin = chintPlugins.inputPlugin ;
+						var radioPlugin = chintPlugins.radioPlugin ;
 						//设备型号参数名
 						var paramData = {
 															  filterPanel : {
@@ -21,20 +21,20 @@ define(function (){
 													   }
 						//下拉数据列表
 						var collapsibleDataHandle = function(){
-								var radioPlugin = ChintPlugins.radioPlugin ;
+								var radioPlugin = chintPlugins.radioPlugin ;
 								//设备种类
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceTypeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceTypeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										//代码重构
 										var domArray = [ { domId : 'filterDeviceTypeTree' , pluginName : '设备类型' , pluginId : 'devicetypename' , pluginHeight : '8.2em' } , 
 																	 { domId : 'modifyDeviceTypeTree' , pluginName : '设备类型' , pluginId : 'devicetypename-modify' , pluginHeight : '8.2em' } ] ;
 										
 										var filterDeviceType = $("#filterDeviceTypeTree").empty() ;
-										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'设备类型' ,  id:'devicetypename' , height : '8.2em' }).radioIconsRender( ) ;
+										var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'设备类型' ,  id:'devicetypename' , height : '8.2em' }).radioIconsRender( ) ;
 										filterDeviceType.append(filterPlugin) ;
 										filterDeviceType.trigger("create") ;
 										
 										var modifyDeviceType = $("#modifyDeviceTypeTree").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'设备类型' ,  id:'devicetypename-modify' , height : '8.2em' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'设备类型' ,  id:'devicetypename-modify' , height : '8.2em' }).radioIconsRender( ) ;
 										modifyDeviceType.append(modifyPlugin) ;
 										modifyDeviceType.trigger("create") ;
 								}) ;
@@ -53,9 +53,9 @@ define(function (){
 						
 						//获取过滤条件IC卡类型
 						var getCardtypename = function(){
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceCardType , {showEmptyNode:1,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceCardType , {showEmptyNode:1,keyId:''} , function(flag , data){
 										var cardtypename = $("#cardtypenameDiv").empty() ;
-										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'IC卡类型' ,  id:'cardtypename' , height : '7em' }).radioIconsRender( ) ;
+										var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'IC卡类型' ,  id:'cardtypename' , height : '7em' }).radioIconsRender( ) ;
 										cardtypename.append(filterPlugin) ;
 										cardtypename.trigger("create") ;
 								}) ;
@@ -64,10 +64,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceTypeDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceTypeDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDeviceTypeTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDeviceTypeTable) ;
 										}
 								}) ;
 						}
@@ -133,7 +133,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:6,tds:[1,3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:6,tds:[1,3]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -153,8 +153,8 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
-								var radioPlugin = ChintPlugins.radioPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
+								var radioPlugin = chintPlugins.radioPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -192,7 +192,7 @@ define(function (){
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									inputPlugin.renderInputFragment( paramData.modifyPanel.inputs , fragment ) ;//绘制输入框列表
-									var textArea = ChintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
+									var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
 									fragment.appendChild(textArea) ;
 									radioPlugin.renderDoubleRadio( paramData.modifyPanel.doubleRadios , fragment ) ;//绘制单行单选
 									fragment.appendChild($("<div id='modifyDeviceTypeTree'/>")[0]) ;
@@ -208,8 +208,8 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var label = modifyInner.find(".hintLabel") ;
 									label.show() ;
 									var params = {} ;
@@ -226,7 +226,7 @@ define(function (){
 									//获取单选框参数
 									params = radioPlugin.setParams(params , modifyInner) ;
 									params.devicetypeid = params.devicetypename ;
-									$(this).customAjax(''+config.basePath+config.baseTblDeviceTypeSave , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.baseTblDeviceTypeSave , params , function(flag , data){
 												var lable = modifyInner.find(".hintLabel") ;
 												$.hintLabel(label , data.msg , "green") ;
 												tableDataHandle({rows:1000}) ; //添加完后执行查询操作

@@ -1,18 +1,30 @@
 define(function (){
 　　　　var list = function (){
-					var radioPlugin = ChintPlugins.radioPlugin ;
-					var datetimepickerPlugin = ChintPlugins.datetimepickerPlugin ;
+					var radioPlugin = chintPlugins.radioPlugin ;
+					var datetimepickerPlugin = chintPlugins.datetimepickerPlugin ;
 					var paramData = { filterPanel : {
 																collasibleRadios : [{data : [ {text : "全部" , id : "" } , {text : "未启用" , id : "0" } , {text : "已启用" , id : "1" }] , 
 																								options : {title:'状态' ,  id:'state' , height : '8.2em' }}] 
 												}} ;
+												
+					//使用promise获取用户类型数据
+					var getTypeCodeTree = function(){
+							var p = new Promise(function(resolve, reject){
+									$.customAjax(''+config.basePath+config.getTypeCodeTree , {showEmptyNode:1,keyId:''} , function(flag , data){
+											if('success' === flag){
+													resolve(data) ;
+											}
+									}) ;
+							}) ;
+							return p ;
+					}
 												
 					//获取table数据
 					var tableDataHandle = function(params){
 							$.customAjax(''+config.basePath+config.getTblPrice , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#priceManageSpan'),data,{pageCount:2}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#priceManageSpan'),data,{pageCount:2}).render(renderTblOptionTable) ;
 									}
 							}) ;
 					}
@@ -66,7 +78,7 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:12,tds:[1,3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:12,tds:[1,3]}) ;//行点击效果
 									}) ;
 									tr.attr("priceid" , data.priceid ) ;
 									tr.on("touchstart" , showPushResult ) ;
@@ -80,7 +92,7 @@ define(function (){
 							$.customAjax(''+config.basePath+config.getPricePushInfo , params , function(flag , data){
 									data.total = !data.total ? data.rows.length : data.total ;
 									if('success' === flag){
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#pushResultSpan'),data,{pageCount:5}).render(renderPushResultTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#pushResultSpan'),data,{pageCount:5}).render(renderPushResultTable) ;
 									}
 							}) ;
 					}
@@ -108,7 +120,7 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
 									}) ;
 							}) ;
 							optionTable.append(fragment).trigger("create") ;
@@ -125,16 +137,24 @@ define(function (){
 					
 					//渲染过滤条件panel
 					var renderFilterPanel = function(){
-							var fragment = document.createDocumentFragment();
-							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
-							var startTime = datetimepickerPlugin.init( { labelName : "生效时间" , name : "transdate_start" } ).render() ;
-							var endTime = datetimepickerPlugin.init( { labelName : "截止时间" , name : "transdate_end" } ).render() ;
-							fragment.appendChild(startTime) ;
-							fragment.appendChild(endTime) ;
-							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
-							var button = $("<button class='confirm-button'>确认</button>") ;
-							fragment.appendChild(button[0]) ;
-							filterInner.append(fragment).trigger("create") ;
+							getTypeCodeTree().then(function(data){
+									paramData.filterPanel.collasibleRadios.unshift( {data : data , options : {title:'用户类型' ,  id:'customerTypeCodes' , height : '8.2em' } } );
+									return "" ;
+							}).then(function(data){
+									var fragment = document.createDocumentFragment();
+									fragment.appendChild($("<label>过滤条件</label>")[0]) ;
+									var startTime = datetimepickerPlugin.init( { labelName : "生效时间" , name : "transdate_start" } ).render() ;
+									var endTime = datetimepickerPlugin.init( { labelName : "截止时间" , name : "transdate_end" } ).render() ;
+									fragment.appendChild(startTime) ;
+									fragment.appendChild(endTime) ;
+									radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
+									var button = $("<button class='confirm-button'>确认</button>") ;
+									button.on("click" , function(){
+												$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
+									}) ;
+									fragment.appendChild(button[0]) ;
+									filterInner.append(fragment).trigger("create") ;
+							}) ;
 					}
 			
 					!(function(){
@@ -159,7 +179,6 @@ define(function (){
 							renderFilterPanel() ;		//渲染过滤条件panel
 							clickFilterConditionEle() ;		//过滤条件标签点击事件
 					})() ;
-					return "价格管理" ;
 　　　　};
 　　　　return {
 　　　　　　init: list

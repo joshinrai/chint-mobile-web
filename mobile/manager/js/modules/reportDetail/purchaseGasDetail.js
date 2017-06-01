@@ -1,12 +1,12 @@
 define(function (){
 　　　　var list = function (){
-					
+					var datetimepickerPlugin = chintPlugins.datetimepickerPlugin ;
 					//获取购气清单数据
 					var getBussinessPartHandle = function(params){
-							$(this).customAjax(''+config.basePath+config.getBussinessPart , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.getBussinessPart , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#purchaseGasDetailSpan'),data,{pageCount:5}).render(renderBussinessTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#purchaseGasDetailSpan'),data,{pageCount:5}).render(renderBussinessTable) ;
 									}
 							}) ;
 					}
@@ -34,11 +34,36 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
 									}) ;
 							}) ;
 							optionTable.append(fragment).trigger("create") ;
 					}
+					
+					//添加过滤查询panel内容
+					var renderFilterPanel = function(){
+							var fragment = document.createDocumentFragment();
+							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
+							var startTime = datetimepickerPlugin.init( { labelName : "开始时间" , name : "starttime" } ).render() ;
+							var endTime = datetimepickerPlugin.init( { labelName : "结束时间" , name : "endtime" } ).render() ;
+							fragment.appendChild(startTime) ;
+							fragment.appendChild(endTime) ;
+							var button = $("<button  class='confirm-button'>确认</button>") ;
+							button.on("touchstart" , function(){
+										$.queryContext( filterInner , filterPanel , frozenDailyDataHandle ) ;
+							}) ;
+							fragment.appendChild(button[0]) ;
+							filterInner.append(fragment).trigger("create") ;
+					} ;
+					
+					//点击过滤条件标签显示过滤条件filterPanel并清空filterPanel中组件的内容
+					var clickFilterConditionEle = function(){
+							//显示过滤查询panel
+							$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
+									filterPanel.find("input").val("") ;
+									filterPanel.panel().panel("open");
+							}) ;
+					} ;
 
 					!(function(){
 							$.emptyInnerPanel() ;//清空mainbody的内容
@@ -53,6 +78,8 @@ define(function (){
 								  chintMainInnerHtml += '<span id="purchaseGasDetailSpan" style="float:right;"></span>'  ;
 							chintBodyMain.append(chintMainInnerHtml).trigger("create") ;
 							getBussinessPartHandle({rows:10000}) ;//获取购气清单数据
+							renderFilterPanel() ;				//渲染过滤条件panel
+					 		clickFilterConditionEle() ;		//过滤条件标签点击事件
 					})() ;
 					return "营业厅购气明细表" ;
 　　　　};

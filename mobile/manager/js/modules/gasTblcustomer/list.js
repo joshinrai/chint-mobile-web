@@ -1,8 +1,8 @@
 define(function (){
 			  var changeDivice = {accountid : "" , deviceid : "" , zoneid : ""} ;
 　　　　var list = function (){
-					var inputPlugin = ChintPlugins.inputPlugin ;
-					var radioPlugin = ChintPlugins.radioPlugin ;
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var radioPlugin = chintPlugins.radioPlugin ;
 					//组件静态参数列表
 					var paramData = { tblTitle : {} , 
 												    filterPanel : {
@@ -43,7 +43,7 @@ define(function (){
 							//选择区域数据列表
 							$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var zoneTree = $("#filterZoneTree").empty() ;
-										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'区域选择' ,  id:'zoneid' , height : '8.2em' }).radioIconsRender( ) ;
+										var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'区域选择' ,  id:'zoneid' , height : '8.2em' }).radioIconsRender( ) ;
 										zoneTree.append(filterPlugin) ;
 										zoneTree.trigger("create") ;
 							}) ;
@@ -82,7 +82,7 @@ define(function (){
 							$.customAjax(''+config.basePath+config.accountInfoDataList , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTblOptionTable) ;
 									}
 							}) ;
 					} ;
@@ -123,7 +123,7 @@ define(function (){
 													"</td>"+"</tr>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:8,tds:[1,3]} , true) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:8,tds:[1,3]} , true) ;//行点击效果
 									}) ;
 									$(tr[tr.length-1]).attr("userData" , JSON.stringify(data) ) ;
 									navigationOperation(tr) ;

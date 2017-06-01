@@ -1,12 +1,17 @@
 define(function (){
 　　　　var gasFrozenDataMonthly = function (){
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var paramData = { filterPanel : {
+																inputs : [ {label:'表号',name:'devicecode'} , {label:'用户名',name:'ownername'} , {label:'表名',name:'devicename'} ,
+																			  {label:'户号',name:'accountno'}] 
+												  }} ;
 
 					//获取月冻结数据
 					var frozenMonthlyDataHandle = function(params){
-							$(this).customAjax(''+config.basePath+config.queryFrozenDataMonthly , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.queryFrozenDataMonthly , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#frozenByMonthSpan'),data,{pageCount:5}).render(renderFrozenMonthlyTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#frozenByMonthSpan'),data,{pageCount:5}).render(renderFrozenMonthlyTable) ;
 									}
 							}) ;
 					}
@@ -36,12 +41,36 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
 									}) ;
 							}) ;
 							optionTable.append(fragment).trigger("create") ;
 					}
 
+					//添加过滤查询panel内容
+					var renderFilterPanel = function(){
+							var fragment = document.createDocumentFragment();
+							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
+							paramData.filterPanel.inputs.forEach(function(data , index){
+										fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name } ).render() ) ;
+							}) ;
+							var button = $("<button  class='confirm-button'>确认</button>") ;
+							button.on("touchstart" , function(){
+										$.queryContext( filterInner , filterPanel , frozenMonthlyDataHandle ) ;
+							}) ;
+							fragment.appendChild(button[0]) ;
+							filterInner.append(fragment).trigger("create") ;
+					} ;
+					
+					//点击过滤条件标签显示过滤条件filterPanel并清空filterPanel中组件的内容
+					var clickFilterConditionEle = function(){
+							//显示过滤查询panel
+							$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
+									filterPanel.find("input").val("") ;
+									filterPanel.panel().panel("open");
+							}) ;
+					} ;
+					
 					!(function(){
 							$.emptyInnerPanel() ;//清空mainbody的内容
 							var chintMainInnerHtml   =  ''  ;
@@ -55,6 +84,8 @@ define(function (){
 								  chintMainInnerHtml += '<span id="frozenByMonthSpan" style="float:right;"></span>'  ;
 							chintBodyMain.append(chintMainInnerHtml).trigger("create") ;
 							frozenMonthlyDataHandle({rows:1000}) ;//获取月冻结数据
+							renderFilterPanel() ;				//渲染过滤条件panel
+					 		clickFilterConditionEle() ;		//过滤条件标签点击事件
 					})() ;
 					return "月冻结数据" ;
 　　　　};

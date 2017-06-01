@@ -3,55 +3,55 @@ define(function (){
 						//下拉数据列表
 						var collapsibleDataHandle = function(){
 								//区域名称数据
-								$(this).customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var filterZone = $("#filterZoneTreeDataList").empty() ;
-										var filterPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'区域名称' ,  id:'allZoneTreeFilter' , height : '200px' }).legendRender( ) ;
+										var filterPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'区域名称' ,  id:'allZoneTreeFilter' , height : '200px' }).legendRender( ) ;
 										filterZone.append(filterPlugin) ;
 										filterZone.trigger("create") ;
 										
 										var modifyZone = $("#modifyZoneTreeDataList").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'所属区域' ,  id:'zoneid-Modify' , height : '200px' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'所属区域' ,  id:'zoneid-Modify' , height : '200px' }).radioIconsRender( ) ;
 										modifyZone.append(modifyPlugin) ;
 										modifyZone.trigger("create") ;
 								}) ;
 								
 								//设备种类
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceTypeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceTypeTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var filterDeviceType = $("#filterDeviceTypeTree").empty() ;
-										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'设备种类' ,  id:'devicetypeid' , height : '8.2em' }).radioIconsRender( ) ;
+										var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'设备种类' ,  id:'devicetypeid' , height : '8.2em' }).radioIconsRender( ) ;
 										filterDeviceType.append(filterPlugin) ;
 										filterDeviceType.trigger("create") ;
 										
 										var modifyDeviceType = $("#modifyDeviceTypeTree").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'设备种类' ,  id:'devicetypeid-Modify' , height : '8.2em' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'设备种类' ,  id:'devicetypeid-Modify' , height : '8.2em' }).radioIconsRender( ) ;
 										modifyDeviceType.append(modifyPlugin) ;
 										modifyDeviceType.trigger("create") ;
 								}) ;
 								
 								//集中器数据列表
-								$(this).customAjax(''+config.basePath+config.getConcentratorByZone , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.getConcentratorByZone , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var concentratorList = $("#concentratorList").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'集中器' ,  id:'concentratorid' , height : '200px' }).radioIconsRender( ) ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'集中器' ,  id:'concentratorid' , height : '200px' }).radioIconsRender( ) ;
 										concentratorList.append(modifyPlugin) ;
 										concentratorList.trigger("create") ;
 								}) ;
 								
 								//过滤查询----设备型号
 								var filterDeviceModel = $("#filterDeviceModelTree").empty() ;
-								var filterPlugin = ChintPlugins.radioPlugin.init(null , [{ text:'请先选择设备种类',id:'' }] , {title:'设备型号' ,  id:'devicemodel' , height : '200px' }).radioIconsRender( ) ;
+								var filterPlugin = chintPlugins.radioPlugin.init(null , [{ text:'请先选择设备种类',id:'' }] , {title:'设备型号' ,  id:'devicemodel' , height : '200px' }).radioIconsRender( ) ;
 								filterDeviceModel.append(filterPlugin).trigger("create") ;
 								
 								//添加/修改----设备型号
 								var modifyDeviceModelTree = $("#modifyDeviceModelTree").empty() ;
-								var modifyPlugin = ChintPlugins.radioPlugin.init(null , [{ text:'请先选择设备种类',id:'' }] , {title:'设备型号' ,  id:'devicemodel-Modify' , height : '200px' }).radioIconsRender( ) ;
+								var modifyPlugin = chintPlugins.radioPlugin.init(null , [{ text:'请先选择设备种类',id:'' }] , {title:'设备型号' ,  id:'devicemodel-Modify' , height : '200px' }).radioIconsRender( ) ;
 								modifyDeviceModelTree.append(modifyPlugin).trigger("create") ;
 						}
 						
 						//过滤查询----设备型号
 						var getDeviceModelTree = function( typeid ){
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceModelTree , {showEmptyNode : 1 , keyId:'' , typeid : typeid } , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceModelTree , {showEmptyNode : 1 , keyId:'' , typeid : typeid } , function(flag , data){
 											var filterDeviceModel = $("#filterDeviceModelTree").empty() ;
-											var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'设备型号' ,  id:'devicemodel' , height : '200px' }).radioIconsRender( ) ;
+											var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'设备型号' ,  id:'devicemodel' , height : '200px' }).radioIconsRender( ) ;
 											filterDeviceModel.append(filterPlugin) ;
 											filterDeviceModel.trigger("create") ;
 								}) ;
@@ -59,9 +59,9 @@ define(function (){
 						
 						//添加/修改----设备型号
 						var getMdDeviceModelTree = function( typeid ){
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceModelTree , {showEmptyNode : 1 , keyId:'' , typeid : typeid } , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceModelTree , {showEmptyNode : 1 , keyId:'' , typeid : typeid } , function(flag , data){
 											var filterDeviceModel = $("#modifyDeviceModelTree").empty() ;
-											var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'设备型号' ,  id:'devicemodel-Modify' , height : '200px' }).radioIconsRender( ) ;
+											var filterPlugin = chintPlugins.radioPlugin.init(null , data , {title:'设备型号' ,  id:'devicemodel-Modify' , height : '200px' }).radioIconsRender( ) ;
 											filterDeviceModel.append(filterPlugin) ;
 											filterDeviceModel.trigger("create") ;
 								}) ;
@@ -93,10 +93,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.baseTblDeviceDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTblDeviceDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDeviceTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDeviceTable) ;
 										}
 								}) ;
 						}
@@ -131,7 +131,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:10 , tds:[1 , 3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:10 , tds:[1 , 3]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -151,7 +151,7 @@ define(function (){
 						
 						//过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -169,7 +169,7 @@ define(function (){
 								var deviceType = $("<div id='filterDeviceTypeTree'/>") ;
 								fragment.appendChild(deviceType[0]) ;
 								deviceType.on("change" , function(){ 
-										var typeid = ChintPlugins.collapsiblePlugin.getValueFromEle( $(this).find('.radioChecked') ) ;
+										var typeid = chintPlugins.collapsiblePlugin.getValueFromEle( $(this).find('.radioChecked') ) ;
 										getDeviceModelTree(typeid) ;
 										return false ;
 								}) ;
@@ -180,7 +180,7 @@ define(function (){
 																	  { title : "计量模式" , id : "syschargeflag" , array : [{text : "全部" , id : "" } , {text : "系统计费（气量表）" , id : "1" } , {text : "表具计费（金额表）" , id : "0" }]}  ,
 																	  { title : "安全停气" , id : "safeshutflag" , array : [{text : "全部" , id : "" } , {text : "是" , id : "1" } , {text : "否" , id : "0" }] } ] ;
 								deviceFilterList.forEach(function(data , index){
-										var plugin = ChintPlugins.radioPlugin.init(null , data.array , {title : data.title ,  id : data.id , height : '8.16em' }).radioIconsRender( ) ;
+										var plugin = chintPlugins.radioPlugin.init(null , data.array , {title : data.title ,  id : data.id , height : '8.16em' }).radioIconsRender( ) ;
 										fragment.appendChild( plugin[0] ) ;
 								}) ;
 								var button = $("<button>查询</button>") ;
@@ -193,17 +193,17 @@ define(function (){
 						var filterPanelQuery = function(){
 									var params = {} ;
 									params.rows = 1000 ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var chintInput = filterInner.find('.chintInput') ;
 									chintInput.each(function(index , data){
 											params[data.name] = data.value ;
 									}) ;
-									params.zoneid = ChintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterZoneTreeDataList .ui-checkbox-on')) ;
+									params.zoneid = chintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterZoneTreeDataList .ui-checkbox-on')) ;
 									var radioChecked = filterInner.find('.radioChecked') ;
 									radioChecked.each(function( index , data ){
 												var name = data.name.toString() ;
 												name = name.substr( 0 , name.lastIndexOf("-")).replace("radio-choice-" , "") ;
-												params[name] = ChintPlugins.radioPlugin.getValueFromEle(data) ;
+												params[name] = chintPlugins.radioPlugin.getValueFromEle(data) ;
 									}) ;
 									tableDataHandle(params) ;
 									filterPanel.panel().panel("close") ;
@@ -218,8 +218,8 @@ define(function (){
 													modifyInner.find("button").attr("deviceid" , "") ;
 													modifyPanel.panel().panel("open");
 									}) ;
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									var dataArray = [{label:'设备编号',name:'devicecode'} , {label:'设备名称',name:'devicename'} , {label:'设备描述',name:'devicedesc'}, {label:'节点标识(NID)',name:'nid'},
@@ -240,7 +240,7 @@ define(function (){
 									fragment.appendChild( deviceType[0] ) ;
 									fragment.appendChild( $("<div id='modifyDeviceModelTree'/>")[0] ) ;
 									deviceType.on("change" , function(){ 
-											var typeid = ChintPlugins.collapsiblePlugin.getValueFromEle( $(this).find('.radioChecked') ) ;
+											var typeid = chintPlugins.collapsiblePlugin.getValueFromEle( $(this).find('.radioChecked') ) ;
 											getMdDeviceModelTree(typeid) ;
 											return false ;
 									}) ;
@@ -269,7 +269,7 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var label = modifyInner.find(".hintLabel") ;
 									label.show() ;
 									var params = {} ;
@@ -297,9 +297,9 @@ define(function (){
 												var name = data.name.toString() ;
 												name = name.substr( 0 , name.lastIndexOf("-")).replace("radio-choice-" , "") ;
 												name = name.substr( 0 , name.indexOf("-") ) ;
-												params[name] = ChintPlugins.radioPlugin.getValueFromEle(data) ;
+												params[name] = chintPlugins.radioPlugin.getValueFromEle(data) ;
 									}) ;
-									$(this).customAjax(''+config.basePath+config.baseTblDeviceSave , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.baseTblDeviceSave , params , function(flag , data){
 												var lable = $(chintBodyMain).parent().find('#modifyPanel .ui-panel-inner .hintLabel') ;
 												if("success" == flag){
 															$.hintLabel(label , data.msg , "green" ) ;
@@ -313,7 +313,7 @@ define(function (){
 						
 						//修改操作
 						var modifyEvent = function(self){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var userData = JSON.parse(self.parentNode.parentNode.attributes.userData.value) ;
 									modifyPanel.find("label")[0].textContent = "修改" ;
 									var inputs = modifyPanel.find('.chintInput') ;

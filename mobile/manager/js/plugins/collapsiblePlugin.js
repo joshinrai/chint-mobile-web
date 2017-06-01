@@ -174,4 +174,4 @@
 		  
 		  namespace.collapsiblePlugin = new collapsiblePlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

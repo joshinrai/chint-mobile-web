@@ -35,4 +35,4 @@
 		  
 		  namespace.datetimepickerPlugin = new datetimepickerPlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

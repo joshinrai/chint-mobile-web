@@ -39,4 +39,4 @@
 		  
 		  namespace.popupPlugin = new popupPlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

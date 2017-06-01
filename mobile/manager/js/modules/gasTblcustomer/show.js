@@ -1,7 +1,7 @@
 define(function (){
 　　　　var show = function (){
-					var inputPlugin = ChintPlugins.inputPlugin ;
-					var radioPlugin = ChintPlugins.radioPlugin ;
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var radioPlugin = chintPlugins.radioPlugin ;
 					var checkedZoneId = null ;
 					var checkedDeviceId = null ;
 					
@@ -37,15 +37,14 @@ define(function (){
 													} 
 												  } ;
 					
-					//组件动态数据列表
-					var collapsibleDataHandle = function(){
-							//选择区域数据列表
-							$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
-										var zoneTree = $("#filterZoneTree").empty() ;
-										var filterPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'区域选择' ,  id:'zoneid' , height : '8.2em' }).radioIconsRender( ) ;
-										zoneTree.append(filterPlugin) ;
-										zoneTree.trigger("create") ;
+					//获取区域选择列表
+					var getZoneTree = function(){
+							var p = new Promise(function(resolve, reject){
+										$.customAjax(''+config.basePath+config.baseTblZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+												if('success' === flag) resolve(data) ;
+										}) ;
 							}) ;
+							return p ;
 					}
 					
 					//获取证件类型和用户类型数据
@@ -76,7 +75,7 @@ define(function (){
 							$.customAjax(''+config.basePath+config.searchDeviceByZone , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
 									}
 							}) ;
 					}
@@ -94,7 +93,7 @@ define(function (){
 													"<tr><td  style='font-weight:bold ;'>安装地址</td><td colspan='3'>"+$.parseVoidValue( data.deviceaddress )+"</td></tr><tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:3,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:3,tds:[1,3]}) ;//行点击效果
 									}) ;
 									tr.attr("userData" , JSON.stringify(data.deviceid) ) ;
 									tr.on("touchstart" , showDeviceDetail  ) ;
@@ -161,8 +160,7 @@ define(function (){
 												$.fadeInPlugin("开户保存失败！请重试...") ;
 										}else{
 												$.fadeInPlugin("开户保存成功!") ;
-										}
-										console.log("开户信息保存 data is :" , data) ;							
+										}					
 							}) ;
 							return false ;
 					}
@@ -189,20 +187,25 @@ define(function (){
 					
 					//添加过滤查询panel内容
 					var renderFilterPanel = function(){
-							var fragment = document.createDocumentFragment();
-							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
-							paramData.filterPanel.inputs.forEach(function(data , index){
-										fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name } ).render() ) ;
+							getZoneTree().then(function(data){
+									paramData.filterPanel.collasibleRadios.push( {data : data , options : {title:'区域选择' ,  id:'zoneid' , height : '8.2em' } } );
+									return "" ;
+							}).then(function(data){
+									var fragment = document.createDocumentFragment();
+									fragment.appendChild($("<label>过滤条件</label>")[0]) ;
+									paramData.filterPanel.inputs.forEach(function(data , index){
+												fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name } ).render() ) ;
+									}) ;
+									radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
+									fragment.appendChild($("<div id='filterZoneTree'/>")[0]) ;
+									var button = $("<button class='confirm-button'>确认</button>") ;
+									button.on("touchstart" , function(){
+												$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
+												checkedZoneId = radioPlugin.setParams({} , filterInner.find("#filterZoneTree")).zoneid ;//设置zoneid
+									} ) ;
+									fragment.appendChild(button[0]) ;
+									filterInner.append(fragment).trigger("create") ;
 							}) ;
-							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
-							fragment.appendChild($("<div id='filterZoneTree'/>")[0]) ;
-							var button = $("<button class='confirm-button'>确认</button>") ;
-							button.on("touchstart" , function(){
-										$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
-										checkedZoneId = radioPlugin.setParams({} , filterInner.find("#filterZoneTree")).zoneid ;//设置zoneid
-							} ) ;
-							fragment.appendChild(button[0]) ;
-							filterInner.append(fragment).trigger("create") ;
 					} ;
 					
 					//创建表具信息中的单选框和用户信息输入框信息
@@ -267,10 +270,9 @@ define(function (){
 							chintBodyMain.append(chintMainInnerHtml).trigger("create") ;
 							tableDataHandle( {rows:10000} ) ;		//渲染table
 							renderFilterPanel() ;		//渲染过滤条件panel
-							collapsibleDataHandle() ;		//获取动态数据 
 							createDomInfo() ;			//绘制表具信息和用户信息标签列表
 							clickFilterConditionEle() ;		//过滤条件标签点击事件
-					})()
+					})() ;
 　　　　};
 　　　　return {
 　　　　　　init: show

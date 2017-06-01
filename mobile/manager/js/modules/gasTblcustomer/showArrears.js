@@ -1,6 +1,6 @@
 define(function (){
 　　　　var showArrears = function (){
-					var inputPlugin = ChintPlugins.inputPlugin ;
+					var inputPlugin = chintPlugins.inputPlugin ;
 					
 					var key = null ;
 					
@@ -13,12 +13,12 @@ define(function (){
 					
 					//获取table数据
 					var tableDataHandle = function(params){
-							$(this).customAjax(''+config.basePath+config.getDataListArrears , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.getDataListArrears , params , function(flag , data){
 									if('success' === flag){
 										key = data.key ;
 										data.total = "0" === String( data.total ) ? data.rows.length : data.total ;
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#arrearageSpan'),data,{pageCount:5}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#arrearageSpan'),data,{pageCount:5}).render(renderTblOptionTable) ;
 									}
 							}) ;
 					}
@@ -44,7 +44,7 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
 									}) ;
 									tr.attr("userData" , JSON.stringify({ accountid : data.accountid , deviceid : data.deviceid}) ) ;
 									tr.on("touchstart" , showMsgDetail  ) ;
@@ -55,9 +55,9 @@ define(function (){
 					//添加点击欠费处理的某条数据获取短信详情信息
 					var showMsgDetail = function(){
 							var arrearsData = JSON.parse($(this).attr("userData")) ;
-							$(this).customAjax(''+config.basePath+config.getMsgDetail , arrearsData , function(flag , data){
+							$.customAjax(''+config.basePath+config.getMsgDetail , arrearsData , function(flag , data){
 									if('success' === flag){
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#msgDetailSpan'),data,{pageCount:5}).render(renderMsgDetailTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#msgDetailSpan'),data,{pageCount:5}).render(renderMsgDetailTable) ;
 									}
 							}) ;
 					}
@@ -77,7 +77,7 @@ define(function (){
 													"<tr><td  style='font-weight:bold ;'>生成时间</td><td colspan='3'>"+data.createdate+"</td></tr><tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:4,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:4,tds:[1,3]}) ;//行点击效果
 									}) ;
 							}) ;
 							optionTable.append(fragment).trigger("create") ;

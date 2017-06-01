@@ -350,7 +350,7 @@ $(document).bind('mobileinit',function(){
 		//*******************定义全局对象********************
 		config.type = 'dev';
 		namespace.config = configMap[config.type];
-		namespace.ChintPlugins = {};
+		namespace.chintPlugins = {};
 		//*****************************************************
 
 })(window);

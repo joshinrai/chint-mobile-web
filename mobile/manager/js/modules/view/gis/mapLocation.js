@@ -9,7 +9,7 @@ define(function (){
 						
 						//获取区域数据信息，根据区域数据信息添加标注   		先使用高阶函数解决问题，这里应该使用promise更好?
 						var getZoneTree = function(){
-								$(this).customAjax(''+config.basePath+config.baseTblZoneTree , { showEmptyNode : "0" , keyId : "" } , function( flag , data ){
+								$.customAjax(''+config.basePath+config.baseTblZoneTree , { showEmptyNode : "0" , keyId : "" } , function( flag , data ){
 											var getMarkers = function(){
 														data.forEach(function(data , index){
 																	var point = new BMap.Point( data.attributes.Longitude , data.attributes.Latitude ) ;

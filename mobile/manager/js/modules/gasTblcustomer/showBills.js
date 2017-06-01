@@ -1,8 +1,8 @@
 define(function (){
 　　　　var showBills = function (){
-					var inputPlugin = ChintPlugins.inputPlugin ;
-					var radioPlugin = ChintPlugins.radioPlugin ;
-					var datetimepickerPlugin = ChintPlugins.datetimepickerPlugin ;
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var radioPlugin = chintPlugins.radioPlugin ;
+					var datetimepickerPlugin = chintPlugins.datetimepickerPlugin ;
 					var paramData = { filterPanel : {
 																inputs : [ {label:'户号',name:'accountno'} , {label:'用户名',name:'ownername'} , 
 																				{label:'证件号码',name:'pidcardno'} , {label:'手机',name:'mobileno'}] ,
@@ -15,13 +15,13 @@ define(function (){
 					var tableDataHandle = function(params){
 							loading.show() ;
 							//添加table数据
-							$(this).customAjax(''+config.basePath+config.dataListBills , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.dataListBills , params , function(flag , data){
 									if(0 == data.total){
 											data.total = data.rows.length ;
 									}
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:5}).render(renderTblOptionTable) ;
 									}
 									loading.hide() ;
 							}) ;
@@ -81,7 +81,7 @@ define(function (){
 													"<tr><td  style='font-weight:bold ;'>证件号码  </td><td colspan='3'>"+data.pidcardno+"</td></tr>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]} , true) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]} , true) ;//行点击效果
 									}) ;
 									$(tr[tr.length-1]).attr("userData" , JSON.stringify(data) ) ;
 							}) ;

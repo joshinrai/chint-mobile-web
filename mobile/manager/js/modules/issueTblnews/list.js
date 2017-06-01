@@ -30,10 +30,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.issueTblnewsDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.issueTblnewsDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderissueTblnewsTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderissueTblnewsTable) ;
 										}
 								}) ;
 						}
@@ -60,7 +60,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:4,tds:[1 , 3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:4,tds:[1 , 3]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -79,7 +79,7 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -102,7 +102,7 @@ define(function (){
 						var filterPanelQuery = function(){
 									var params = {} ;
 									params.rows = 1000 ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var chintInput = filterInner.find('.chintInput') ;
 									chintInput.each(function(index , data){
 											params[data.name] = data.value ;

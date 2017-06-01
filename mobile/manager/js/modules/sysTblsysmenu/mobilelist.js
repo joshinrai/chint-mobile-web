@@ -3,14 +3,14 @@ define(function (){
 						
 						//菜单树数据列表
 						var collapsibleDataHandle = function(){
-								$(this).customAjax(''+config.basePath+config.getMenuTreeNoEmptys , {} , function(flag , data){
+								$.customAjax(''+config.basePath+config.getMenuTreeNoEmptys , {} , function(flag , data){
 											var modifyMenuTree = $("#modifyMenuTree").empty() ;
-											var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title:'上级菜单树' ,  id:'menuTree' , height : '200px' }).radioIconsRender( ) ;
+											var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title:'上级菜单树' ,  id:'menuTree' , height : '200px' }).radioIconsRender( ) ;
 											modifyMenuTree.append(modifyPlugin) ;
 											modifyPanel.trigger("create") ;
 											
 											var filterLobby = $("#filterMenuTreeDataList").empty() ;
-											var filterPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'选择菜单' ,  id:'allMenuTreeFilter' , height : '200px' }).legendRender( ) ;
+											var filterPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'选择菜单' ,  id:'allMenuTreeFilter' , height : '200px' }).legendRender( ) ;
 											filterLobby.append(filterPlugin) ;
 											filterPanel.trigger("create") ;
 								}) ;
@@ -42,10 +42,10 @@ define(function (){
 						//table数据处理
 						var tableDataHandle = function(params){
 								//添加table数据
-								$(this).customAjax(''+config.basePath+config.sysTblMenuDataList , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTblMenuDataList , params , function(flag , data){
 										if('success' === flag){
 											//渲染分页，table数据使用callback回调函数渲染
-											ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblmenuTable) ;
+											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblmenuTable) ;
 										}
 								}) ;
 						}
@@ -84,7 +84,7 @@ define(function (){
 								
 										tr.each(function(index){
 											fragment.appendChild(this) ;
-											ChintPlugins.tablePlugin.trColorSetting(this,index,{total:3,tds:[1,3]}) ;//行点击效果
+											chintPlugins.tablePlugin.trColorSetting(this,index,{total:3,tds:[1,3]}) ;//行点击效果
 										}) ;
 										
 										aTds = tr.find('a') ;
@@ -103,7 +103,7 @@ define(function (){
 						
 						//添加过滤查询panel内容
 						var renderFilterPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
 								//显示过滤查询panel
 								$(chintBodyMain).find('#filterConditionElement').on('click',function(){
 										filterPanel.find(".chintInput").val("") ;
@@ -130,14 +130,14 @@ define(function (){
 						var filterPanelQuery = function(){
 									var params = {} ;
 									params.rows = 1000 ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var chintInput = filterInner.find('.chintInput') ;
 									chintInput.each(function(index , data){
 											params[data.name] = data.value ;
 									}) ;
 									var radioChecked = filterInner.find('.radioChecked')[0] ;
 									params.openflag = radioChecked ? radioPlugin.getValueFromEle(radioChecked) : "" ;
-									params.parentid = ChintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterMenuTreeDataList .ui-checkbox-on')) ;
+									params.parentid = chintPlugins.collapsiblePlugin.getValueFromEle(filterInner.find('#filterMenuTreeDataList .ui-checkbox-on')) ;
 									tableDataHandle(params) ;
 									filterPanel.panel().panel("close") ;
 						}
@@ -151,8 +151,8 @@ define(function (){
 													modifyInner.find("button").attr("funid" , "") ;
 													modifyPanel.panel().panel("open");
 									}) ;
-									var inputPlugin = ChintPlugins.inputPlugin ;
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var inputPlugin = chintPlugins.inputPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var fragment = document.createDocumentFragment() ;
 									fragment.appendChild($("<label>")[0]) ;
 									var dataArray = [{label:'菜单名',name:'funname'} , {label:'电脑版URL',name:'responseurl'} , 
@@ -160,7 +160,7 @@ define(function (){
 									dataArray.forEach(function(data , index){
 												fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name , type : data.type } ).render() ) ;
 									}) ;
-									var textArea = ChintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'optiondescription'} ).render() ;
+									var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'optiondescription'} ).render() ;
 									fragment.appendChild(textArea) ;
 									var menuTreeList = $("<div id='modifyMenuTree' style='margin: .3em 0 ;'></div>") ;
 									fragment.appendChild(menuTreeList[0]) ;
@@ -177,7 +177,7 @@ define(function (){
 						
 						//添加 修改button点击操作
 						var modifyPanelOpration = function(){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var label = modifyInner.find(".hintLabel") ;
 									label.show() ;
 									var params = {} ;
@@ -207,7 +207,7 @@ define(function (){
 									var button = modifyInner.find("button") ;
 									var funid = button.attr("funid") ;
 									params.funid = funid ? funid : "" ;
-									$(this).customAjax(''+config.basePath+config.sysTblMenuSave , params , function(flag , data){
+									$.customAjax(''+config.basePath+config.sysTblMenuSave , params , function(flag , data){
 												var lable = $(chintBodyMain).parent().find('#modifyPanel .ui-panel-inner .hintLabel') ;
 												hintLabel(label , data.msg , "green") ;
 												setTimeout(function(){ modifyPanel.panel().panel("close") } , 1000) ;
@@ -216,7 +216,7 @@ define(function (){
 						
 						//修改操作
 						var modifyEvent = function(self){
-									var radioPlugin = ChintPlugins.radioPlugin ;
+									var radioPlugin = chintPlugins.radioPlugin ;
 									var userData = JSON.parse(self.parentNode.parentNode.attributes.userData.value) ;
 									modifyPanel.find("label")[0].textContent = "修改" ;
 									var inputs = modifyPanel.find('input') ;
@@ -247,7 +247,7 @@ define(function (){
 											var funid = [] ;
 											funid.push(param.funid) ;
 											//删除操作需要检查当前记录是否存在主外键约束...
-											$(this).customAjax(''+config.basePath+config.sysTblMenuDelete , {id : funid.toString() } , function(flag , data){
+											$.customAjax(''+config.basePath+config.sysTblMenuDelete , {id : funid.toString() } , function(flag , data){
 														console.log("删除信息:" , data.msg) ;
 											}) ;
 									}) ;
@@ -257,7 +257,7 @@ define(function (){
 						var getMenuStatue = function(id){
 								var dataId = 'menuStatue-'+id ;
 								var menuArray = [{id : 0 , text : "禁用" } , { id : 1 , text : "都可使用" } , { id : 2 , text : "只应用于电脑版" },{ id : 3 , text : "只应用于手机版" }] ;
-								var plugin = ChintPlugins.radioPlugin.init(null , menuArray , {title:'菜单状态' ,  id : dataId , height : '10.9em' }).radioIconsRender( ) ;
+								var plugin = chintPlugins.radioPlugin.init(null , menuArray , {title:'菜单状态' ,  id : dataId , height : '10.9em' }).radioIconsRender( ) ;
 								return plugin ;
 						}
 						

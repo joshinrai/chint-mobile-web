@@ -5,35 +5,35 @@ define(function (){
 					var collapsibleDataHandle = function(){
 					
 								//营业厅数据
-								$(this).customAjax(''+config.basePath+config.sysTbldepartDataList , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTbldepartDataList , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var filterLobby = $("#filterLobbyDataList").empty() ;
-										var filterPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'营业厅' ,  id:'allLobbyFilter' , height : '200px' }).legendRender( ) ;
+										var filterPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'营业厅' ,  id:'allLobbyFilter' , height : '200px' }).legendRender( ) ;
 										filterLobby.append(filterPlugin) ;
 										filterInner.trigger("create") ;
 										
 										var modifyLobby = $("#modifyLobbyDataList").empty() ;
-										var modifyPlugin = ChintPlugins.radioPlugin.init(null , data , {title : '营业厅' , id : 'allLobbyModify' }).radioIconsRender() ;
+										var modifyPlugin = chintPlugins.radioPlugin.init(null , data , {title : '营业厅' , id : 'allLobbyModify' }).radioIconsRender() ;
 										modifyLobby.append(modifyPlugin) ;
 										modifyInner.trigger("create") ;
 								}) ;
 								
 								//角色名称列表
-								$(this).customAjax(''+config.basePath+config.sysTblroleGetAllRole , {} , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTblroleGetAllRole , {} , function(flag , data){
 										var filterRole = $("#filterRoleDataList").empty() ;
-										var filterPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'角色名称',id:'allRoleFilter' , height : '200px' }).legendRender() ;
+										var filterPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'角色名称',id:'allRoleFilter' , height : '200px' }).legendRender() ;
 										filterRole.append(filterPlugin) ;
 										filterInner.trigger("create") ;
 										
 										var modifyRole = $("#modifyRoleDataList").empty() ;
-										var modifyPlugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'角色名称' ,  id:'allRoleModify' , height : '200px' }).legendRender( ) ;
+										var modifyPlugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'角色名称' ,  id:'allRoleModify' , height : '200px' }).legendRender( ) ;
 										modifyRole.append(modifyPlugin) ;
 										modifyInner.trigger("create") ;
 								}) ;
 											
 								//数据区域列表
-								$(this).customAjax(''+config.basePath+config.baseTbZoneGetZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
+								$.customAjax(''+config.basePath+config.baseTbZoneGetZoneTree , {showEmptyNode:0,keyId:''} , function(flag , data){
 										var modifyZone = $("#modifyZoneDataList").empty() ;
-										var plugin = ChintPlugins.collapsiblePlugin.init(null , data , {title:'区域数据访问权限' , id:'allZoneModify' , height : '200px' }).legendRender() ;
+										var plugin = chintPlugins.collapsiblePlugin.init(null , data , {title:'区域数据访问权限' , id:'allZoneModify' , height : '200px' }).legendRender() ;
 										modifyZone.append(plugin) ;
 										modifyInner.trigger("create") ;
 								}) ;
@@ -65,10 +65,10 @@ define(function (){
 					//table数据处理
 					var tableDataHandle = function(params){
 							//添加table数据
-							$(this).customAjax(''+config.basePath+config.sysTblUserDataList , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.sysTblUserDataList , params , function(flag , data){
 								if('success' === flag){
 									//渲染分页，table数据使用callback回调函数渲染
-									ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTbluserTable) ;
+									chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:2}).render(renderTbluserTable) ;
 								}
 							}) ;
 					}
@@ -103,7 +103,7 @@ define(function (){
 												"</tr>") ;
 								tr.each(function(index){
 									fragment.appendChild(this) ;
-									ChintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
+									chintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
 								}) ;
 								aTds = tr.find('a') ;
 								//修改
@@ -126,8 +126,8 @@ define(function (){
 					//添加
 					var renderAddPanel = function(){
 								chintBodyMain.find('#addElement').on('click',function(){
-										var collapsiblePlugin = ChintPlugins.collapsiblePlugin ;
-										var inputPlugin = ChintPlugins.inputPlugin ;
+										var collapsiblePlugin = chintPlugins.collapsiblePlugin ;
+										var inputPlugin = chintPlugins.inputPlugin ;
 										var fragment = document.createDocumentFragment() ;
 										
 										modifyInner.find(".hintLabel").hide() ;
@@ -140,7 +140,7 @@ define(function (){
 										var inputPwd = modifyInner.find('#password')  ;
 										var confirmPwd = modifyInner.find('#confirmPwd') ;
 										
-										ChintPlugins.radioPlugin.reRenderRadioIcons( modifyInner.find("#modifyLobbyDataList") , "") ;
+										chintPlugins.radioPlugin.reRenderRadioIcons( modifyInner.find("#modifyLobbyDataList") , "") ;
 										collapsiblePlugin.legendreRender( modifyInner.find("#modifyRoleDataList") , "") ;
 										collapsiblePlugin.legendreRender( modifyInner.find("#modifyZoneDataList") , "") ;
 										
@@ -158,8 +158,8 @@ define(function (){
 					//添加过滤查询panel内容
 					var renderFilterPanel = function(){
 								filterInner.append("<label>过滤查询</label>") ;
-								ChintPlugins.inputPlugin.init(filterInner , {} , {labelName:'登录账号',id:'userno',name:'userno',style:true}).render() ;
-								ChintPlugins.inputPlugin.init(filterInner , {} , {labelName:'用户名称',id:'username',name:'username',style:true}).render() ;
+								chintPlugins.inputPlugin.init(filterInner , {} , {labelName:'登录账号',id:'userno',name:'userno',style:true}).render() ;
+								chintPlugins.inputPlugin.init(filterInner , {} , {labelName:'用户名称',id:'username',name:'username',style:true}).render() ;
 								filterInner.append("<div id='filterLobbyDataList' style='margin: .3em 0 ;'></div>") ;
 								filterInner.append("<div id='filterRoleDataList' style='margin: .3em 0 ;'></div>") ;
 								filterInner.append("<button>查询</button>").trigger('create') ;
@@ -177,7 +177,7 @@ define(function (){
 								var params = {} ;
 								var lobbyArray = [] ;
 								var roleArray = [] ;
-								var collapsiblePlugin = ChintPlugins.collapsiblePlugin ;
+								var collapsiblePlugin = chintPlugins.collapsiblePlugin ;
 								params.rows = 1000 ;
 								var chintInput = filterInner.find('.chintInput') ;
 								chintInput.each(function(index , data){
@@ -192,8 +192,8 @@ define(function (){
 					
 					//添加 修改panel内容
 					var renderModifyPanel = function(){
-								var inputPlugin = ChintPlugins.inputPlugin ;
-								var radioPlugin = ChintPlugins.radioPlugin ;
+								var inputPlugin = chintPlugins.inputPlugin ;
+								var radioPlugin = chintPlugins.radioPlugin ;
 								var fragment = document.createDocumentFragment() ;
 								fragment.appendChild($("<label>")[0]) ;
 								
@@ -202,7 +202,7 @@ define(function (){
 								dataArray.forEach(function(data , index){
 											fragment.appendChild( inputPlugin.init( null , {} , {labelName : data.label , id : data.name , name : data.name , type : data.type } ).render() ) ;
 								}) ;
-								var textArea = ChintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'optiondescription'} ).render() ;
+								var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'optiondescription'} ).render() ;
 								fragment.appendChild(textArea) ;
 								fragment.appendChild(radioPlugin.init( null , [{radioName:'否' , value : '0'},{radioName:'是' , value : '1'}] , {title : '管理员' , id : 'sysflag'} ).doubleRender()[0]) ;
 								fragment.appendChild(radioPlugin.init( null , [{radioName:'启用' , value : '0' },{radioName:'禁用' , value : '1'}] , {title : '状态' , id : 'deletedflag'} ).doubleRender()[0]) ;
@@ -223,7 +223,7 @@ define(function (){
 					
 					//添加 修改 的确定操作
 					var modifyConfirm = function(panel){
-								var collapsiblePlugin = ChintPlugins.collapsiblePlugin ;
+								var collapsiblePlugin = chintPlugins.collapsiblePlugin ;
 								var params = {} ;
 								var label = panel.find(".hintLabel") ;
 								var inputs = panel.find(".chintInput") ;
@@ -269,7 +269,7 @@ define(function (){
 								params.createby = panel.find("button")[0].attributes.createby ;
 								params.updateby = panel.find("button")[0].attributes.updateby ;
 								
-								$(this).customAjax(''+config.basePath+config.sysTblRoleSave , params , function(flag , data){
+								$.customAjax(''+config.basePath+config.sysTblRoleSave , params , function(flag , data){
 										var lable = $(chintBodyMain).parent().find('#modifyPanel .ui-panel-inner .hintLabel') ;
 										$.hintLabel(label , data.msg , "green") ;
 										tableDataHandle({rows:1000}) ;		//添加后执行查询操作
@@ -279,8 +279,8 @@ define(function (){
 					
 					//修改操作
 					var modifyEvent = function(self){
-								var radioPlugin = ChintPlugins.radioPlugin ;
-								var collapsiblePlugin = ChintPlugins.collapsiblePlugin ;
+								var radioPlugin = chintPlugins.radioPlugin ;
+								var collapsiblePlugin = chintPlugins.collapsiblePlugin ;
 								var panel = chintBodyMain.parent().find('#modifyPanel') ;
 								panel.find('label')[0].textContent = '修改' ;
 								panel.find(".hintLabel").hide() ;
@@ -330,7 +330,7 @@ define(function (){
 								popupA.attr('resetparam',JSON.stringify({dataId : dataId})) ;
 								popupA.on('click',function(){
 									var dataId = this.attributes.resetparam.value ;
-									$(this).customAjax(''+config.basePath+config.updateInitPassword , {id:dataId} , function(flag , data){
+									$.customAjax(''+config.basePath+config.updateInitPassword , {id:dataId} , function(flag , data){
 											var options = {h1:'重置密码',h3:'重置密码成功',a0:'确定',a1:'取消'} ;
 											console.log("重置密码" , data) ;
 									}) ;

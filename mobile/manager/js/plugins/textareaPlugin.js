@@ -34,4 +34,4 @@
 		  
 		  namespace.textareaPlugin = new textareaPlugin() ;
 	
-})(window.ChintPlugins)
+})(window.chintPlugins)

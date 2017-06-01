@@ -1,12 +1,20 @@
 define(function (){
 　　　　var dormantCustomer = function (){
-					
+					var inputPlugin = chintPlugins.inputPlugin ;
+					var radioPlugin = chintPlugins.radioPlugin ;
+					var paramData = { filterPanel : {
+																collasibleRadios : [{data : [{text : "全部" , id : " " } , {text : "充值" , id : "1" } , {text : "缴费" , id : "3" },{text : "消费" , id : "4" }] , 
+																								options : {title:'交易类型' ,  id:'transtype' , height : '10.9em' }} , 
+																								{data : [{text : "1个月" , id : "1" } , {text : "3个月" , id : "3" } , {text : "6个月" , id : "6" },{text : "12个月" , id : "12" }] , 
+																								options : {title:'休眠期限' ,  id:'dormantTime' , height : '10.9em' }}]
+												}} ;
+												
 					//渲染休眠账户table
 					var dormantAccountHandle = function(params){
-							$(this).customAjax(''+config.basePath+config.listDormantCustomer , params , function(flag , data){
+							$.customAjax(''+config.basePath+config.listDormantCustomer , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#dormantAccountSpan'),data,{pageCount:5}).render(renderDormantAccount) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#dormantAccountSpan'),data,{pageCount:5}).render(renderDormantAccount) ;
 									}
 							}) ;
 					}
@@ -37,7 +45,7 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
 									}) ;
 									tr.attr("userData" , JSON.stringify({accountid : data.accountid , deviceid : data.deviceid })) ;
 									tr.on("touchstart" , springInfoHandle ) ;
@@ -47,11 +55,11 @@ define(function (){
 					
 					var springInfoHandle = function(){
 							var params = JSON.parse($(this).attr("userData")) ;
-							$(this).customAjax(''+config.basePath+config.dataListTrans , params , function(flag , data){
+							params.rows = 10000 ;
+							$.customAjax(''+config.basePath+config.dataListTrans , params , function(flag , data){
 									if('success' === flag){
 										//渲染分页，table数据使用callback回调函数渲染
-										console.log("this is a callback data ...") ;
-										ChintPlugins.pageBreakPlugin.init(chintBodyMain.find('#springInfoSpan'),data,{pageCount:5}).render(renderSpringAccount) ;
+										chintPlugins.pageBreakPlugin.init(chintBodyMain.find('#springInfoSpan'),data,{pageCount:5}).render(renderSpringAccount) ;
 									}
 							}) ;
 					}
@@ -122,11 +130,33 @@ define(function (){
 													"<tr/>") ;
 									tr.each(function(index){
 										fragment.appendChild(this) ;
-										ChintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
+										chintPlugins.tablePlugin.trColorSetting(this,index,{total:5,tds:[1,3]}) ;//行点击效果
 									}) ;
 							}) ;
 							optionTable.append(fragment).trigger("create") ;
 					}
+					
+					//添加过滤查询panel内容
+					var renderFilterPanel = function(){
+							var fragment = document.createDocumentFragment();
+							fragment.appendChild($("<label>过滤条件</label>")[0]) ;
+							radioPlugin.renderCollasibleRadio( paramData.filterPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
+							var button = $("<button  class='confirm-button'>确认</button>") ;
+							button.on("touchstart" , function(){
+										$.queryContext( filterInner , filterPanel , dormantAccountHandle ) ;
+							}) ;
+							fragment.appendChild(button[0]) ;
+							filterInner.append(fragment).trigger("create") ;
+					} ;
+					
+					//点击过滤条件标签显示过滤条件filterPanel并清空filterPanel中组件的内容
+					var clickFilterConditionEle = function(){
+							//显示过滤查询panel
+							$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
+									filterPanel.find("input").val("") ;
+									filterPanel.panel().panel("open");
+							}) ;
+					} ;
 					
 					 !(function(){
 					 		$.emptyInnerPanel() ;//清空mainbody的内容
@@ -148,6 +178,8 @@ define(function (){
 								  chintMainInnerHtml += '<span id="springInfoSpan" style="float:right;"></span>'  ;
 					 		chintBodyMain.append(chintMainInnerHtml).trigger("create") ;
 					 		dormantAccountHandle({}) ;//渲染休眠账户table
+					 		renderFilterPanel() ;				//渲染过滤条件panel
+					 		clickFilterConditionEle() ;		//过滤条件标签点击事件
 					 })() ;
 					return "休眠账户" ;
 　　　　};
