@@ -1,33 +1,19 @@
-(function($){
-			$.fn.extend({
-							//封装ajax请求，请求类型默认为post，数据格式默认为json, 默认异步
-							customAjax : function(url,params,callback,async,type,datatype){
-								$.ajax({
-						          type : type||"post",
-						          url : url,
-						          data : params ,
-						          dataType : datatype||"json",
-						          async : async||true,
-						          success : function(data) {
-						          			callback('success',data) ;
-						          },
-						          error : function(data) {
-						          			callback('error',data) ;
-						          }
-								});
-							},
-							//删除/重置密码提示框信息
-							renderPopup : function( popup , options){
-									popup.find('h1')[0].textContent = options.h1 ;
-									popup.find('h3')[0].textContent = options.h3 ;
-									popup.find('a')[0].textContent = options.a0 ;
-									popup.find('a')[1].textContent = options.a1 ;
-									return popup ;
-							}
+/***
+ *  客户端工具类
+ * @author : joshinrai
+ */
+
+!(function($){
+				/********************************添加类方法*******************************/
+				$.fn.extend({
+						test : function(){
+								console.log("this is test ...") ;
+						}
 				}) ;
 				/********************************添加静态方法*******************************/
 				//封装ajax请求
 				$.customAjax = function(url,params,callback,async,type,datatype){
+						loading.show() ;
 						$.ajax({
 						          type : type||"post",
 						          url : url,
@@ -35,10 +21,11 @@
 						          dataType : datatype||"json",
 						          async : async||true,
 						          success : function(data) {
+						          			loading.hide() ;
 						          			callback('success',data) ;
 						          },
-						          error : function(data) {
-						          			callback('error',data) ;
+						          error : function(XMLHttpRequest, textStatus, errorThrown) {
+						          			callback('请求失败',XMLHttpRequest.responseText) ;
 						          }
 						});
 				}
@@ -167,10 +154,10 @@
 						try{
 									interval = setInterval( pollingFun , 500 ) ; 
 						}catch(e){
-									console.log("the exception is : " , e) ;// 待写入日志	jeecg
+									console.log("the exception is : " , e) ;// 
 						}
 				}
-				//使用轮询解决获取baidumap的问题，ES6 Promise or requirejs module or emit on会更好???
+				//使用轮询解决获取baidumap的问题
 				$.getBMap = function( container , height ){
 						$.addScript( config.baiduMap ) ;  // 动态添加baidu Map脚本
 						var chintGis = function(){

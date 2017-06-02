@@ -7,7 +7,7 @@
 	       	$("#loginModal input").each(function(){
 	       		formData[this.name]=$("#"+this.name).val() ;
 	       	}) ;
-	       	$(this).customAjax(''+config.basePath+config.checkUser,formData,function(flag,data){
+	       	$.customAjax(''+config.basePath+config.checkUser,formData,function(flag,data){
 	       		if('success' === flag){
 	       			if(true === data.success){
                			label.hide() ;

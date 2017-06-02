@@ -1,6 +1,5 @@
 (function (jQuery){
-	//使用的是从网上down的组件，this指的是window，或许将this换成***Plugin比较好...
-	//修改人:joshinrai
+	//author:joshinrai
 	this.version = '@1.0';
 
 	this.layer = {'width' : 200, 'height': 100};

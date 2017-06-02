@@ -1,5 +1,4 @@
-
-(function( namespace ){
+!(function( namespace ){
 	//正泰主页
 	var chintHomePage = $("#chintHomePage") ;
 	
