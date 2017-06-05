@@ -32,8 +32,6 @@
 				{"title":"公司信息","value":"/sysTblcompany/list.do"},
 				{"title":"区域管理","value":"/baseTblzone/list.do"},
 				{"title":"表具管理","value":"/baseTbldevice/list.do"},
-				{"title":"表具远程配置","value":"/baseTbldevice/deviceRemoteConfig.do"},
-				{"title":"表具批量设置","value":"/view/sys/deviceGroupSetting.jsp"},
 				{"title":"设备型号管理","value":"/sysTbldevicetype/list.do"},
 				{"title":"GIS定位","value":"/view/gis/mapLocation.jsp"},
 				{"title":"新闻编辑","value":"/issueTblnews/list.do"},

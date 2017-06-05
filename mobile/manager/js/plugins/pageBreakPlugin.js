@@ -18,7 +18,7 @@
 			      load : function(){
 			      
 			      },
-			      render : function(callback){
+			      render : function(callback,_this){
 			      		var self = this ;
 			      		self.callback = callback ;
 			      		var data = self.data ;
@@ -27,7 +27,7 @@
 						var initData = {} ;
 						initData.rows = data.rows.slice(0,self.options.pageCount) ;
 						initData.total = data.total ;
-						callback(initData) ;//用于渲染界面中的table，视具体情况获取不同的方法
+						callback(initData , _this) ;//用于渲染界面中的table，视具体情况获取不同的方法
 						//************************************************
 			      		var fragment = '' ;
 						var span = self.node ;

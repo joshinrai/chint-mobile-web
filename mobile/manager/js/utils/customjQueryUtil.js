@@ -197,9 +197,9 @@
 						modifyInner.empty() ;
 				}
 				//查询内容参数
-				$.queryContext = function(filterInner , filterPanel , tableCallBack , arguments){
+				$.queryContext = function(filterInner , filterPanel , tableCallBack , arguments , self){
 						var params = {} ;
-						params.rows = 1000 ;
+						params.rows = 10000 ;
 						var radioPlugin = chintPlugins.radioPlugin ;
 						var chintInput = filterInner.find('.chintInput') ;
 						chintInput.each(function(index , data){
@@ -214,7 +214,7 @@
 						for(var argument in arguments){
 								params[argument] = arguments[argument] ;
 						}
-						tableCallBack(params) ;
+						tableCallBack(params,self) ;
 						filterPanel.panel().panel("close") ;
 				}
 				//点击添加标签
