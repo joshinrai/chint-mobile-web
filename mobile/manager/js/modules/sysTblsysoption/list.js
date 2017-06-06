@@ -102,10 +102,8 @@ define(function (){
 				//显示过滤查询panel
 				$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
 					filterPanel.find("input").val("") ;
-					//radioPlugin.reRenderRadioIcons( filterInner.find(".ui-collapsible") , "") ;
 					filterPanel.panel().panel("open");
 				}) ;
-				console.log("this is renderFilterPanel ...") ;
 				filterInner.append(fragment).trigger("create") ;
   			}) ;
   		},
@@ -126,7 +124,7 @@ define(function (){
 			fragment.appendChild(textArea) ;
 			var hintLabel = $("<label style='color:red;' class='hintLabel'></label>") ;
 			fragment.appendChild(hintLabel[0]) ;
-			var button = $("<button>确认</button>") ;
+			var button = $("<button class='confirm-button'>确认</button>") ;
 			button.on("click" , self.modifyPanelOpration) ;
 			fragment.appendChild(button[0]) ;
 			modifyInner.append(fragment).trigger("create") ;

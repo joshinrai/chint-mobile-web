@@ -1,5 +1,7 @@
 (function(namespace){
-	
+		  /***
+		   * @author : www.joshinrai.cn
+		   */
 		  function pageBreakPlugin() { } 
 		  pageBreakPlugin.prototype = {
 		  		 /***
