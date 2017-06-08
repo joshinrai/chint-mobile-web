@@ -99,7 +99,7 @@ define(function (){
 				}) ;
 				fragment.appendChild(button[0]) ;
 
-				//显示过滤查询panel
+				//为过滤条件panel绑定监听
 				$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
 					filterPanel.find("input").val("") ;
 					filterPanel.panel().panel("open");
