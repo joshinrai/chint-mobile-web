@@ -65,10 +65,9 @@ define(function (){
 						var tableDataHandle = function(params){
 								//添加table数据
 								$.customAjax(''+config.basePath+config.baseTblDeviceTypeDataList , params , function(flag , data){
-										if('success' === flag){
+										if('success' === flag)
 											//渲染分页，table数据使用callback回调函数渲染
 											chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(renderTblDeviceTypeTable) ;
-										}
 								}) ;
 						}
 						
@@ -234,9 +233,186 @@ define(function (){
 									}) ;
 						}
 						
-						init() ;
-　　　　};
-　　　　return {
-　　　　　　	init: list
-　　　　};
+						//init() ;
+		new deviceType() ;
+　　};
+	var deviceType = Container.extends({
+		paramData : {
+		 	filterPanel : {
+	  			collasibleRadios:[{data:[ { text : "全部" , id : "" } , { text : "非远传表" , id : "0" } , 
+	  					{ text : "物联网表" , id : "1" } , { text : "无线远传表" , id : "2" }] , 
+	  					options : {title:'通讯模式' ,
+						id:'commmode' , height : '10.94em' }} , {data : [{ text : "全部" , id : "" } , 
+						{ text : "是" , id : "1" } , { text : "否" , id : "0" }] , 
+						options : {title:'是否IC卡表' ,  
+						id:'usecard' , height : '8.2em' } }]
+			 } , 
+			modifyPanel : {
+	  			inputs : [{label:'设备型号',name:'devicemodel'} , {label:'报警值',name:'warnvalue'} , 
+  						{label:'关阀报警值',name:'warnlvalue'} , {label:'表内门限值',name:'limitvalue'} , 
+  						{label:'流量上限值',name:'flowlimitvalue'} , {label:'不用气警告值(天)',name:'alertdays'} ,
+						{label:'不用气强制关阀值(天)',name:'forcedays'} ],
+				doubleRadios : [ {data : [ { radioName : "是" , value : "1" } , { radioName : "否" , value : "0" }] , options : {title:"是否IC卡表" , id : "usecard"}} , 
+			    		{data : [ { radioName : "金额表" , value : "1" } , { radioName : "气量表" , value : "0" }] , options : {title : "计费模式" , id : "runmode"} } ],
+			    collasibleRadios : [{ data : [{ text : "全部" , id : "" } , { text : "非远传表" , id : "0" } , 
+			    		{ text : "物联网表" , id : "1" } , { text : "无线远传表" , id : "2" }] , 
+			    		options : {title:'通讯模式' ,  id:'commmode-modify' , height : '10.94em' }  }]
+			}
+		} ,
+		getDeviceTypeData : function(params , scope){
+			var self = this == window ? scope : this;
+			$.customAjax(''+config.basePath+config.baseTblDeviceTypeDataList , params , function(flag , data){
+				if('success' === flag)
+					//渲染分页，table数据使用callback回调函数渲染
+					chintPlugins.pageBreakPlugin.init(chintBodyMain.find('span'),data,{pageCount:4}).render(self.renderTableBody ,self) ;
+			}) ;
+		},
+		//渲染设备型号表头
+		renderTableHead : function(){
+			var self = this ;
+			var chintMainInnerHtml   = [
+			   '<h2>设备型号管理</h2>'  ,
+			   '<div>'  ,
+			   		'<a id="addElement" href="#" data-ajax="false" class="addElement">添加</a>' ,
+			   		'<a id="filterConditionElement" href="#" data-ajax="false" class="filterConditionElement">过滤查询</a>' ,
+			   '</div>'  ,
+		 	   '<table data-role="table" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="" class="table-stroke">' ,
+			   		 '<thead><tr class="th-groups"><th style="width:4.15em">设备类型</th>' ,//<th style="width:4.15em">设备型号</th>
+			   		 '<th style="width:4.15em">通讯模式</th><th colspan="2" style="width:5.15em">计费模式</th>' ,
+			   		 '</tr></thead>' ,
+			   		 	 '<tbody></tbody>' ,
+			   '</table>' ,
+			   '<span style="float:right;"></span>'].join("")  ;
+		   	chintBodyMain.append(chintMainInnerHtml).trigger("create") ;
+		   	self.getDeviceTypeData({rows:10000}) ;
+		} ,
+		//渲染设备型号内容
+		renderTableBody : function(data , scope){
+			var self = this == window ? scope : this;
+			var fragment = document.createDocumentFragment();
+			var optionTable = $(chintBodyMain).find('table tbody') ;
+			optionTable.empty() ;//先清空table中的内容再渲染table
+			data.rows.forEach(function(data,index){
+				var commmode = self.getCommmode(data.commmode) ;
+				var tr = $(["<tr><td style='border:0 ;'>",data.devicetypename,"</td><td style='border:0 ;'>",
+									commmode ,"</td><td colspan='2' style='border:0 ;'>",$.parseDoubleValue( data.runmode , "金额表", "气量表" ),"</td></tr>",
+								"<tr><td style='font-weight:bold;border:0;'>设备型号</td><td colspan='3' style='border:0;'>",data.devicemodel,"</td></tr>",
+								"<tr><td  style='font-weight:bold;border:0;'>IC卡表类型</td><td style='border:0;'>",$.parseVoidValue( data.cardtypename ),"</td>",
+								"<td  style='font-weight:bold;border:0;'>是否IC卡表</td><td style='border:0;'>",$.parseDoubleValue(data.usecard , "是" , "否"),"</td></tr>",
+								"<tr><td  style='font-weight:bold;border:0;'>报警值</td><td style='border:0;'>",$.parseVoidValue( data.warnvalue ),"</td>",
+								"<td  style='font-weight:bold;border:0;'>关阀报警值</td><td style='border:0;'>",$.parseVoidValue( data.warnlvalue ),"</td></tr>",
+								"<tr><td  style='font-weight:bold;border:0;'>表内门限值</td><td style='border:0;'>",$.parseVoidValue( data.limitvalue ),"</td>",
+								"<td  style='font-weight:bold;border:0;'>流量上限值</td><td style='border:0;'>",$.parseVoidValue( data.flowlimitvalue ),"</td></tr>",
+								"<tr><td  style='font-weight:bold;border:0;'>不用气告警值(天)</td><td style='border:0;'>",$.parseVoidValue( data.alertdays ),"</td>",
+								"<td  style='font-weight:bold;border:0;'>不用气强制关阀值(天)</td><td style='border:0;'>",$.parseVoidValue( data.forcedays ),"</td></tr>",
+								"<tr><td  style='font-weight:bold;border:0;'>描述</td><td colspan='3' style='border:0;'>",data.description,"</td></tr>",
+								"<tr userData=",JSON.stringify({data:data,index:index}),"><td colspan='2'/><td><a style='font-weight:300;float:right;'>修改</a></td><td>",
+								"<a href='#modifyPopup' data-rel='popup' data-position-to='window' data-transition='pop' style='font-weight:300;text-decoration:none;float:right;'>删除</a>",
+								"</td></tr>"].join("")) ;
+		
+				tr.each(function(index){
+					fragment.appendChild(this) ;
+					chintPlugins.tablePlugin.trColorSetting(this,index,{total:7,tds:[1,3]}) ;//行点击效果
+				}) ;
+				
+				aTds = tr.find('a') ;
+				//修改
+				$(aTds[0]).on('touchstart',function(){
+					//$.modifyEvent(this) ;
+				}) ;
+				//删除
+				$(aTds[1]).on('touchstart',function(){
+					var url = config.basePath+config.baseTblDeviceTypeDelete ;
+					$.deleteSelectedData(this , url , self.getDeviceTypeData ) ;//没有设置URL通用参数
+				}) ;
+			
+			}) ;
+			optionTable.append(fragment).trigger("create") ;
+		},
+		//渲染过滤条件panel
+		renderFilterPanel : function(){
+			var self = this ;
+			var inputPlugin = chintPlugins.inputPlugin ;
+			var radioPlugin = chintPlugins.radioPlugin ;
+			var fragment = document.createDocumentFragment();
+			var label = $("<label>过滤查询</label>") ;
+			fragment.appendChild(label[0]) ;
+			var dataArray = [ { label:'设备型号',name:'devicemodel' } ] ;
+			inputPlugin.renderInputFragment( dataArray , fragment) ;//绘制输入框
+			fragment.appendChild($("<div id='filterDeviceTypeTree'/>")[0]) ;
+			radioPlugin.renderCollasibleRadio( self.paramData.filterPanel.collasibleRadios , fragment ) ;
+			$(fragment.lastChild).on("change" , function(){
+				var dataId = $(this).find('.radioChecked').attr("dataId") ;
+				if( 0 == dataId && "" !== dataId ){
+					$("#cardtypenameDiv").find("form").empty() ;
+				}else{
+					getCardtypename() ;
+				}
+			}) ;
+			fragment.appendChild($("<div id='cardtypenameDiv'/>")[0]) ;
+			var runmode = radioPlugin.init(null , [ { text : "全部" , id : "" } , { text : "金额表" , id : "1" } , { text : "气量表" , id : "0" } ] , {title:'计量模式' ,  id:'runmode' , height : '8.2em' }).radioIconsRender( ) ;
+			fragment.appendChild(runmode[0]) ;
+			var button = $("<button class='confirm-button'>查询</button>") ;
+			button.on("touchstart" , function(){
+				$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
+			}) ;
+			fragment.appendChild(button[0]) ;
+			filterInner.append(fragment).trigger("create") ;
+			//绑定事件
+			$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
+				filterPanel.find(".chintInput").val("") ;
+				filterPanel.panel().panel("open");
+			}) ;
+		},
+		//渲染修改/添加panel
+		renderModifyPanel : function(){
+			var self = this ;
+			var inputPlugin = chintPlugins.inputPlugin ;
+			var radioPlugin = chintPlugins.radioPlugin ;
+			chintBodyMain.find('#addElement').on('touchstart', $.clickModifyLabel ) ;
+			var fragment = document.createDocumentFragment() ;
+			fragment.appendChild($("<label>")[0]) ;
+			inputPlugin.renderInputFragment( self.paramData.modifyPanel.inputs , fragment ) ;//绘制输入框列表
+			var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
+			fragment.appendChild(textArea) ;
+			radioPlugin.renderDoubleRadio( self.paramData.modifyPanel.doubleRadios , fragment ) ;//绘制单行单选
+			fragment.appendChild($("<div id='modifyDeviceTypeTree'/>")[0]) ;
+			radioPlugin.renderCollasibleRadio( self.paramData.modifyPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
+			fragment.appendChild($("<div id='cardtypenameModify'/>")[0]) ;
+			var hintLabel = $("<label style='color:red;' class='hintLabel'></label>") ;
+			fragment.appendChild(hintLabel[0]) ;
+			var button = $("<button class='confirm-button'>确认</button>") ;
+			button.on("touchstart" , null ) ;//modifyPanelOpration) ;
+			fragment.appendChild(button[0]) ;
+			modifyInner.append(fragment).trigger("create") ;
+		} ,
+		//获取通讯模式
+		getCommmode : function(commmode){
+			switch(commmode){
+				case 0 :
+					commmode = "非远传表" ;
+					break ;
+				case 1 :
+					commmode = "物联网表" ;
+					break ;
+				case 2 :
+					commmode = "无线远传表" ;
+					break ;
+				default : 
+					commmode = "" ;
+					break ;
+			}
+			return commmode ;
+		},
+		init : function(){
+			var self = this ;
+			$.emptyInnerPanel() ;//清空mainbody的内容
+			self.renderTableHead() ;//渲染设备型号表头
+			self.renderFilterPanel() ;//渲染过滤条件panel
+			self.renderModifyPanel() ;//渲染修改/添加panel
+		}
+	}) ;
+　　return {
+　　　　init: list
+　　};
 });
