@@ -232,33 +232,56 @@ define(function (){
 												setTimeout(function(){ modifyPanel.panel().panel("close") } , 1000) ;
 									}) ;
 						}
-						
-						//init() ;
+		//init() ;
 		new deviceType() ;
 　　};
 	var deviceType = Container.extends({
 		paramData : {
 		 	filterPanel : {
-	  			collasibleRadios:[{data:[ { text : "全部" , id : "" } , { text : "非远传表" , id : "0" } , 
-	  					{ text : "物联网表" , id : "1" } , { text : "无线远传表" , id : "2" }] , 
-	  					options : {title:'通讯模式' ,
-						id:'commmode' , height : '10.94em' }} , {data : [{ text : "全部" , id : "" } , 
-						{ text : "是" , id : "1" } , { text : "否" , id : "0" }] , 
-						options : {title:'是否IC卡表' ,  
-						id:'usecard' , height : '8.2em' } }]
+	  			collasibleRadios:[
+  					{data:[ { text : "全部" , id : "" } , { text : "非远传表" , id : "0" } ,{ text : "物联网表" , id : "1" } , { text : "无线远传表" , id : "2" }] , 
+  						options : {title:'通讯模式' , id:'commmode' , height : '10.94em' }} , 
+					{data : [{ text : "全部" , id : "" } , { text : "是" , id : "1" } , { text : "否" , id : "0" }] , 
+						options : {title:'是否IC卡表' , id:'usecard' , height : '8.2em' }} ,
+					{data : [{ text : "全部" , id : "" } , { text : "金额表" , id : "1" } , { text : "气量表" , id : "0" } ] , 
+						options : {title:'计量模式' ,  id:'runmode' , height : '8.2em' }}]
 			 } , 
 			modifyPanel : {
 	  			inputs : [{label:'设备型号',name:'devicemodel'} , {label:'报警值',name:'warnvalue'} , 
-  						{label:'关阀报警值',name:'warnlvalue'} , {label:'表内门限值',name:'limitvalue'} , 
-  						{label:'流量上限值',name:'flowlimitvalue'} , {label:'不用气警告值(天)',name:'alertdays'} ,
-						{label:'不用气强制关阀值(天)',name:'forcedays'} ],
+					{label:'关阀报警值',name:'warnlvalue'} , {label:'表内门限值',name:'limitvalue'} , 
+					{label:'流量上限值',name:'flowlimitvalue'} , {label:'不用气警告值(天)',name:'alertdays'} ,
+					{label:'不用气强制关阀值(天)',name:'forcedays'} ],
 				doubleRadios : [ {data : [ { radioName : "是" , value : "1" } , { radioName : "否" , value : "0" }] , options : {title:"是否IC卡表" , id : "usecard"}} , 
-			    		{data : [ { radioName : "金额表" , value : "1" } , { radioName : "气量表" , value : "0" }] , options : {title : "计费模式" , id : "runmode"} } ],
-			    collasibleRadios : [{ data : [{ text : "全部" , id : "" } , { text : "非远传表" , id : "0" } , 
-			    		{ text : "物联网表" , id : "1" } , { text : "无线远传表" , id : "2" }] , 
-			    		options : {title:'通讯模式' ,  id:'commmode-modify' , height : '10.94em' }  }]
+		    		{data : [ { radioName : "金额表" , value : "1" } , { radioName : "气量表" , value : "0" }] , options : {title : "计费模式" , id : "runmode"} } ],
+			    collasibleRadios : [
+		    		{ data : [{ text : "全部" , id : "" } , { text : "非远传表" , id : "0" } , 
+		    			{ text : "物联网表" , id : "1" } , { text : "无线远传表" , id : "2" }] , 
+		    		options : {title:'通讯模式' ,  id:'commmode-modify' , height : '10.94em' }  }]
 			}
 		} ,
+		//获取设备种类
+		getDeviceTypeTree : function(){
+			var p = new Promise(function(resolve, reject){
+				var params = {showEmptyNode:0,keyId:''} ;
+				$.customAjax(''+config.basePath+config.baseTblDeviceTypeTree , params , function(flag , data){
+					if('success' === flag)
+						resolve({data:data , options:{title:'设备类型' ,  id:'devicetypename-modify' , height : '8.2em' }}) ;
+				}) ;
+			}) ;
+			return p ;
+		},
+		//获取IC卡类型
+		getCardType: function(){
+			var p = new Promise(function(resolve, reject){
+			var params = {showEmptyNode:1,keyId:''} ;
+				$.customAjax(''+config.basePath+config.baseTblDeviceCardType , params , function(flag , data){
+					if('success' === flag)
+						resolve({data : data ,options:{title:'IC卡类型' ,  id:'cardtypename-Modify' , height : '7em' }}) ;
+				}) ;
+			}) ;
+			return p ;
+		},
+		//获取设备型号
 		getDeviceTypeData : function(params , scope){
 			var self = this == window ? scope : this;
 			$.customAjax(''+config.basePath+config.baseTblDeviceTypeDataList , params , function(flag , data){
@@ -334,30 +357,35 @@ define(function (){
 			var self = this ;
 			var inputPlugin = chintPlugins.inputPlugin ;
 			var radioPlugin = chintPlugins.radioPlugin ;
-			var fragment = document.createDocumentFragment();
-			var label = $("<label>过滤查询</label>") ;
-			fragment.appendChild(label[0]) ;
-			var dataArray = [ { label:'设备型号',name:'devicemodel' } ] ;
-			inputPlugin.renderInputFragment( dataArray , fragment) ;//绘制输入框
-			fragment.appendChild($("<div id='filterDeviceTypeTree'/>")[0]) ;
-			radioPlugin.renderCollasibleRadio( self.paramData.filterPanel.collasibleRadios , fragment ) ;
-			$(fragment.lastChild).on("change" , function(){
-				var dataId = $(this).find('.radioChecked').attr("dataId") ;
-				if( 0 == dataId && "" !== dataId ){
-					$("#cardtypenameDiv").find("form").empty() ;
-				}else{
-					getCardtypename() ;
-				}
+			var collasibleRadios = self.paramData.filterPanel.collasibleRadios ;
+			self.getDeviceTypeTree().then(function(data){
+				if(collasibleRadios.length < 5) collasibleRadios.unshift(data) ;
+				return self.getCardType() ;
+			}).then(function(data){
+				if(collasibleRadios.length < 5) collasibleRadios.push(data) ;
+				return "" ;
+			}).then(function(){
+				var fragment = document.createDocumentFragment();
+				fragment.appendChild($("<label>过滤查询</label>")[0]) ;
+				var dataArray = [ { label:'设备型号',name:'devicemodel' } ] ;
+				inputPlugin.renderInputFragment( dataArray , fragment) ;//绘制输入框
+				radioPlugin.renderCollasibleRadio( collasibleRadios , fragment ) ;
+				var button = $("<button class='confirm-button'>查询</button>") ;
+				fragment.appendChild(button[0]) ;
+				filterInner.append(fragment).trigger("create") ;
+				//绑定事件
+				button.on("touchstart" , function(){
+					$.queryContext( filterInner , filterPanel , self.getDeviceTypeData , null , self ) ;
+				}) ;
+				$(fragment.lastChild).on("change" , function(){
+					var dataId = $(this).find('.radioChecked').attr("dataId") ;
+					if( 0 == dataId && "" !== dataId ){
+						//$("#cardtypenameDiv").find("form").empty() ;
+					}else{
+						//getCardtypename() ;
+					}
+				}) ;
 			}) ;
-			fragment.appendChild($("<div id='cardtypenameDiv'/>")[0]) ;
-			var runmode = radioPlugin.init(null , [ { text : "全部" , id : "" } , { text : "金额表" , id : "1" } , { text : "气量表" , id : "0" } ] , {title:'计量模式' ,  id:'runmode' , height : '8.2em' }).radioIconsRender( ) ;
-			fragment.appendChild(runmode[0]) ;
-			var button = $("<button class='confirm-button'>查询</button>") ;
-			button.on("touchstart" , function(){
-				$.queryContext( filterInner , filterPanel , tableDataHandle ) ;
-			}) ;
-			fragment.appendChild(button[0]) ;
-			filterInner.append(fragment).trigger("create") ;
 			//绑定事件
 			$(chintBodyMain).find('#filterConditionElement').on('touchstart',function(){
 				filterPanel.find(".chintInput").val("") ;
@@ -369,22 +397,31 @@ define(function (){
 			var self = this ;
 			var inputPlugin = chintPlugins.inputPlugin ;
 			var radioPlugin = chintPlugins.radioPlugin ;
+			var collasibleRadios = self.paramData.modifyPanel.collasibleRadios  ;
+			self.getDeviceTypeTree().then(function(data){
+				if(collasibleRadios.length<3) collasibleRadios.unshift(data) ;
+				return self.getCardType() ;
+			}).then(function(data){
+				if(collasibleRadios.length<3) collasibleRadios.push(data) ;
+				return "" ;
+			}).then(function(){
+				var fragment = document.createDocumentFragment() ;
+				fragment.appendChild($("<label>")[0]) ;
+				inputPlugin.renderInputFragment( self.paramData.modifyPanel.inputs , fragment ) ;//绘制输入框列表
+				var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
+				fragment.appendChild(textArea) ;
+				radioPlugin.renderDoubleRadio( self.paramData.modifyPanel.doubleRadios , fragment ) ;//绘制单行单选
+				fragment.appendChild($("<div id='modifyDeviceTypeTree'/>")[0]) ;
+				radioPlugin.renderCollasibleRadio( collasibleRadios , fragment ) ;//绘制下拉单选组件
+				fragment.appendChild($("<div id='cardtypenameModify'/>")[0]) ;
+				var hintLabel = $("<label style='color:red;' class='hintLabel'></label>") ;
+				fragment.appendChild(hintLabel[0]) ;
+				var button = $("<button class='confirm-button'>确认</button>") ;
+				button.on("touchstart" , null ) ;//modifyPanelOpration) ;
+				fragment.appendChild(button[0]) ;
+				modifyInner.append(fragment).trigger("create") ;
+			}) ;
 			chintBodyMain.find('#addElement').on('touchstart', $.clickModifyLabel ) ;
-			var fragment = document.createDocumentFragment() ;
-			fragment.appendChild($("<label>")[0]) ;
-			inputPlugin.renderInputFragment( self.paramData.modifyPanel.inputs , fragment ) ;//绘制输入框列表
-			var textArea = chintPlugins.textareaPlugin.init( null , {} , {labelName:'描述',id:'description',name:'description'} ).render() ;
-			fragment.appendChild(textArea) ;
-			radioPlugin.renderDoubleRadio( self.paramData.modifyPanel.doubleRadios , fragment ) ;//绘制单行单选
-			fragment.appendChild($("<div id='modifyDeviceTypeTree'/>")[0]) ;
-			radioPlugin.renderCollasibleRadio( self.paramData.modifyPanel.collasibleRadios , fragment ) ;//绘制下拉单选组件
-			fragment.appendChild($("<div id='cardtypenameModify'/>")[0]) ;
-			var hintLabel = $("<label style='color:red;' class='hintLabel'></label>") ;
-			fragment.appendChild(hintLabel[0]) ;
-			var button = $("<button class='confirm-button'>确认</button>") ;
-			button.on("touchstart" , null ) ;//modifyPanelOpration) ;
-			fragment.appendChild(button[0]) ;
-			modifyInner.append(fragment).trigger("create") ;
 		} ,
 		//获取通讯模式
 		getCommmode : function(commmode){
