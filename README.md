@@ -7,4 +7,4 @@
 
 *在线地址:www.joshinrai.cn:8080/GIMS
 (需要在手机浏览器中打开,或者使用chrome的移动web页开发模式)
-用户名:admin 密码:1
+*用户名:admin 密码:1
