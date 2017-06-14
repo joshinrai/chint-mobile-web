@@ -1,3 +1,6 @@
+/***
+ * @author:www.joshinrai.cn
+ */
 !(function(){
     var login = Container.extends({
         staticLable : {
