@@ -5,34 +5,48 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="keywords" content="正泰,仪器,仪表,燃气表,管理系统,正泰仪器仪表(集团)有限责任公司,正泰燃气表公司,怎么样,正泰燃气综合管理平台">
 		<title>正泰燃气综合管理平台</title>
-		<link rel="stylesheet" href="manager/css/common/jquery.mobile-1.4.5.css">
-		<link rel="stylesheet" href="manager/css/modules/logincss.css">
-		<link rel="stylesheet" href="manager/css/theme/chint-main.css">
-		
+		<link rel="stylesheet" href="manager/css/modules/login.css">
+		<!--<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>-->
 	</head>
 	<body>
 
-		<div role="main" id="chaintLoginMain"  class=" jqm-content">
-			<span >正泰燃气综合管理平台</span>
-			<div id="loginModal">
-				<input name="userno" id="userno" type="text" placeholder="请输入用户名"></input>
-				<input name="password" id="password" type="password" placeholder="请输入密码"></input>
-				<label></label>
-				<button id="wapLogin">登录</button>
-				<button id="wapReset">重置</button>
+		<div class="cotn_principal">
+			<div class="cont_centrar">
+				<div class="cont_login">
+					<div class="cont_info_log_sign_up">
+				        <div class="col_md_login">
+				          <div class="cont_ba_opcitiy">
+				            <h2>正泰燃气综合管理平台</h2>
+				            <p>为用户提供营收管理、抄表、决策辅助分析和公共增值服务功能。系统支持基表、普通IC卡表、微功率无线表、物联网表，并保证系统正常稳定运行。</p>
+				            <button class="btn_login" id="login_init">继续</button>
+				          </div>
+				        </div>
+				    </div>
+				    <div class="cont_back_info">
+				        <div class="cont_img_back_grey"> <img src="manager/img/wap.jpg" alt="joshinrai" /> </div>
+				    </div>
+				    <div class="cont_forms" >
+				        <div class="cont_img_back_"> <img src="manager/img/wap.jpg" alt="joshinrai" /> </div>
+				        <div class="cont_form_login"> 
+				        	<!--<a href="#" id="ocultarLogin" >
+				        	<i class="material-icons">&#xE5C4;</i></a>-->
+					        <h2>正泰燃气综合管理平台</h2>
+					        <input name="userno" type="text" placeholder="用户名" />
+					        <input name="password" type="password" placeholder="密码" />
+					        <button class="btn_login" id="waplogin">登录</button>
+				        </div>
+				    </div>
+				</div>
 			</div>
-			
-		</div>
-		   
-		<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
-			<p>
-				<a class="chaintCopy" href="http://www.chintim.com" target="_blank">版权所有 &copy; 浙江正泰仪器仪表有限责任公司</a>
-			</p>
 		</div>
 		
+		<script src="manager/js/lib/class.js"></script>
+		<script src="manager/js/lib/event.js"></script>
+		<script src="manager/js/lib/view.js"></script>
+		<script src="manager/js/lib/com.js"></script>
+		<script src="manager/js/lib/container.js"></script>
 		<script src="manager/js/common/jquery.js"></script>
-		<script src="manager/js/theme/index.js"></script>
-		<script src="manager/js/common/jquery.mobile-1.4.5.min.js"></script>
 		<script src="manager/js/config/config.js"></script>
 		<script src="manager/js/utils/customjQueryUtil.js"></script>
 		<script src="manager/js/modules/login.js"></script>
