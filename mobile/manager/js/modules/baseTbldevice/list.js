@@ -329,8 +329,8 @@ define(function (){
 						}
 						
 						
-		init() ;
-		//new baseDevice() ;
+		//init() ;
+		new baseDevice() ;
 　　};
 	var baseDevice = Container.extends({
 		//静态参数

@@ -9,12 +9,11 @@
         },
         //检查登录人员	
         checkUser : function(scope,params){
-            console.log("this is login test ...") ;
             $.customAjax(''+config.basePath+config.checkUser,params,function(flag,data){
               if('success' === flag){
                   if(true === data.success){
                       scope.staticLable.label.hide() ;
-                      window.location.href = config.basePath+config.mainPage ;
+                      window.location.href = config.basePath+config.testPage ;
                   }else if(false === data.success){
                    	  scope.dataFalse(data,scope) ;
                   }

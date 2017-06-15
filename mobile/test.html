@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEMO</title>
+<link rel="stylesheet" type="text/css" href="manager/css/theme/default.css">
+<link rel="stylesheet" type="text/css" href="manager/css/modules/style.css">
+</head>
+<body>
+<div class='container'>
+  <div class='container_ui'>
+	<div class='container_ui__heading'>
+	  <div class='menu_icon'>
+		<img src='manager/img/menu.svg'>
+	  </div>
+	  <h1>
+		首页
+	  </h1>
+	  <div class='config_icon'>
+		<img src="manager/img/config.svg">
+	  </div>
+	</div>
+	<input id='message-1' type='checkbox'>
+	<label for='message-1' href='#move'>
+	  <div class='container_ui__item'>
+		<div class='face'>
+		  <img src='manager/img/6.jpg'>
+		  <div class='color_bar one'>
+			<p>Now Reading</p>
+			<span>Read</span>
+		  </div>
+		</div>
+		<h2>
+		  aspca
+		</h2>
+		<div class='dot active'></div>
+		<h3>subj: thanks, you are amazing</h3>
+		<h4>Your generous donation saved 3 million puppies...</h4>
+	  </div>
+	  <div class='container_ui__expand' id='close'>
+		<div class='heading'>
+		  <div class='heading_head'></div>
+		  <label for='message-1'>
+			x
+		  </label>
+		</div>
+		<div class='body'>
+		  <div class='user'>
+			<div class='face'>
+			  <img src='manager/img/6.jpg'>
+			</div>
+			<div class='details'>
+			  <h2>aspca</h2>
+			  <h3>subj: thanks you are amazing</h3>
+			</div>
+		  </div>
+		  <div class='content'>
+			<p><b>Email text</b></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et commodo ipsum, ut rhoncus velit. Nullam placerat, ipsum sed pretium varius, magna metus ullamcorper magna, at porta quam libero ut est. Mauris cursus in magna in fermentum. Integer mollis convallis quam, vel dignissim ligula rutrum in.<br/><br/>Pellentesque ut purus porta, gravida tellus et, consectetur massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque egestas convallis urna...</p>
+			<span>Reply:</span>
+			<textarea></textarea>
+		  </div>
+		</div>
+	  </div>
+	</label>
+  </div>
+</div>
+<!--菜单栏-->
+<ul class="mainmenu">
+	<li>
+		<img src="manager/img/revenue.svg" alt="User icon" class="icon" />
+		<span>营收管理</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>寻表开户</span></li>
+		<li><span>账户管理</span></li>
+		<li><span>IC卡管理</span></li>
+		<li><span>充值缴费</span></li>
+		<li><span>欠费处理</span></li>
+		<li><span>用户账单</span></li>
+		<li><span>价格管理</span></li>
+		<li><span>操作记录</span></li>
+	</ul>
+	<li>
+		<img src="manager/img/sys-monitor.svg" alt="Envelope icon" class="icon">
+		<span>系统监测</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>实时数据</span></li>
+		<li><span>休眠账户</span></li>
+	</ul>
+	<li>
+		<img src="manager/img/data-query.svg" alt="Cog icon" class="icon">
+		<span>数据查询</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>日冻结数据</span></li>
+		<li><span>月冻结数据</span></li>
+	</ul>
+	<li>
+		<img src="manager/img/data-report.svg" alt="Cog icon" class="icon">
+		<span>数据报表</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>营业厅购气明细</span></li>
+	</ul>
+	<li>
+		<img src="manager/img/report-file.svg" alt="Cog icon" class="icon">
+		<span>报表查询</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>事件报警</span></li>
+	</ul>
+	<li>
+		<img src="manager/img/base-center.svg" alt="Cog icon" class="icon">
+		<span>后台管理</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>系统参数</span></li>
+		<li><span>角色管理</span></li>
+		<li><span>人员管理</span></li>
+		<li><span>菜单管理</span></li>
+		<li><span>营业厅管理</span></li>
+		<li><span>公司信息</span></li>
+		<li><span>区域管理</span></li>
+		<li><span>表具管理</span></li>
+		<li><span>设备型号管理</span></li>
+		<li><span>新闻编辑</span></li>
+		<li><span>日志管理</span></li>
+	</ul>
+	<li>
+		<img src="manager/img/work-sheet.svg" alt="Cog icon" class="icon">
+		<span>日常运维</span>
+	</li>
+	<ul class="submenu">
+		<div class="expand-triangle"></div>
+		<li><span>工单管理</span></li>
+	</ul>
+	<li><img src="manager/img/roll-back.svg" alt="Key icon" class="icon"><span>返回主页</span></li>
+</ul>
+	<script src="manager/js/common/jquery.js"></script>
+	<script src="manager/js/lib/class.js"></script>
+	<script src="manager/js/lib/event.js"></script>
+	<script src="manager/js/lib/view.js"></script>
+	<script src="manager/js/lib/com.js"></script>
+	<script src="manager/js/lib/container.js"></script>
+	<script src="manager/js/common/jquery.js"></script>
+	<script src="manager/js/modules/test.js"></script>
+</body>
+</html>

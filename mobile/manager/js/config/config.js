@@ -44,10 +44,13 @@ $(document).bind('mobileinit',function(){
 		config.modulePath = '/GIMS/view/mobile/manager/js/modules' ;
 		
 		//登录页路径
-		config.loginPage = 'view/mobile/login.html' ;
+		config.loginPage = 'login.html' ;
 		
 		//主页路径
-		config.mainPage = 'view/mobile/index.html' ;
+		config.indexPage = 'view/mobile/index.html' ;
+		
+		//测试路径
+		config.testPage = 'view/mobile/test.html' ;
 		
 		//baidu Map路径
 		config.baiduMap = 'http://api.map.baidu.com/getscript?v=1.4' ;

@@ -232,8 +232,8 @@ define(function (){
 												setTimeout(function(){ modifyPanel.panel().panel("close") } , 1000) ;
 									}) ;
 						}
-		init() ;
-		//new deviceType() ;
+		//init() ;
+		new deviceType() ;
 　　};
 	var deviceType = Container.extends({
 		paramData : {
