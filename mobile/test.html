@@ -22,22 +22,31 @@
 		<img src="manager/img/config.svg">
 	  </div>
 	</div>
-	<input id='message-1' type='checkbox'>
-	<label for='message-1' href='#move'>
+	<div class="newest_alert">
+		<h3>最新报警</h3>
+		<table>
+			<thead><th>时间</th><th>区域</th><th>仪表</th><th>状态</th></thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	<div class="newest_action">
+		<h3>最新动态</h3>
+		<table>
+			<thead><th>动态</th><th>时间</th></thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	<div class="gas_profile">
+		<h3>用气概况</h3>
+		<table>
+			<!--<thead><th>动态</th><th>时间</th></thead>
+			<tbody></tbody>-->
+			
+		</table>
+	</div>
+	<!--<input id='message-1' type='checkbox'>
+	<label for='message-1'>
 	  <div class='container_ui__item'>
-		<div class='face'>
-		  <img src='manager/img/6.jpg'>
-		  <div class='color_bar one'>
-			<p>Now Reading</p>
-			<span>Read</span>
-		  </div>
-		</div>
-		<h2>
-		  aspca
-		</h2>
-		<div class='dot active'></div>
-		<h3>subj: thanks, you are amazing</h3>
-		<h4>Your generous donation saved 3 million puppies...</h4>
 	  </div>
 	  <div class='container_ui__expand' id='close'>
 		<div class='heading'>
@@ -63,7 +72,7 @@
 		  </div>
 		</div>
 	  </div>
-	</label>
+	</label>-->
   </div>
 </div>
 <!--菜单栏-->
@@ -74,14 +83,14 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>寻表开户</span></li>
-		<li><span>账户管理</span></li>
-		<li><span>IC卡管理</span></li>
-		<li><span>充值缴费</span></li>
-		<li><span>欠费处理</span></li>
-		<li><span>用户账单</span></li>
-		<li><span>价格管理</span></li>
-		<li><span>操作记录</span></li>
+		<li src="/gasTblcustomer/show"><span>寻表开户</span></li>
+		<li src="/gasTblcustomer/list"><span>账户管理</span></li>
+		<li src="/gasTblcard/list"><span>IC卡管理</span></li>
+		<li src="/gasTblcustomer/showPay"><span>充值缴费</span></li>
+		<li src="/gasTblcustomer/showArrears"><span>欠费处理</span></li>
+		<li src="/gasTblcustomer/showBills"><span>用户账单</span></li>
+		<li src="/gasTblprice/list"><span>价格管理</span></li>
+		<li src="/gasTblcustomer/operateLog"><span>操作记录</span></li>
 	</ul>
 	<li>
 		<img src="manager/img/sys-monitor.svg" alt="Envelope icon" class="icon">
@@ -89,8 +98,8 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>实时数据</span></li>
-		<li><span>休眠账户</span></li>
+		<li src="/baseTbldevice/showScadaLastData"><span>实时数据</span></li>
+		<li src="/gasTblcustomer/dormantCustomer"><span>休眠账户</span></li>
 	</ul>
 	<li>
 		<img src="manager/img/data-query.svg" alt="Cog icon" class="icon">
@@ -98,8 +107,8 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>日冻结数据</span></li>
-		<li><span>月冻结数据</span></li>
+		<li src="/view/data/gasFrozenDataDaily"><span>日冻结数据</span></li>
+		<li src="/view/data/gasFrozenDataMonthly"><span>月冻结数据</span></li>
 	</ul>
 	<li>
 		<img src="manager/img/data-report.svg" alt="Cog icon" class="icon">
@@ -107,7 +116,7 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>营业厅购气明细</span></li>
+		<li src="/reportDetail/purchaseGasDetail"><span>营业厅购气明细</span></li>
 	</ul>
 	<li>
 		<img src="manager/img/report-file.svg" alt="Cog icon" class="icon">
@@ -115,7 +124,7 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>事件报警</span></li>
+		<li src="/gasTblalert/list"><span>事件报警</span></li>
 	</ul>
 	<li>
 		<img src="manager/img/base-center.svg" alt="Cog icon" class="icon">
@@ -123,17 +132,17 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>系统参数</span></li>
-		<li><span>角色管理</span></li>
-		<li><span>人员管理</span></li>
-		<li><span>菜单管理</span></li>
-		<li><span>营业厅管理</span></li>
-		<li><span>公司信息</span></li>
-		<li><span>区域管理</span></li>
-		<li><span>表具管理</span></li>
-		<li><span>设备型号管理</span></li>
-		<li><span>新闻编辑</span></li>
-		<li><span>日志管理</span></li>
+		<li src="/sysTblsysoption/list"><span>系统参数</span></li>
+		<li src="/sysTblrole/list"><span>角色管理</span></li>
+		<li src="/sysTbluser/list"><span>人员管理</span></li>
+		<li src="/sysTblsysmenu/list"><span>菜单管理</span></li>
+		<li src="/sysTbldepart/list"><span>营业厅管理</span></li>
+		<li src="/sysTblcompany/list"><span>公司信息</span></li>
+		<li src="/baseTblzone/list"><span>区域管理</span></li>
+		<li src="/baseTbldevice/list"><span>表具管理</span></li>
+		<li src="/sysTbldevicetype/list"><span>设备型号管理</span></li>
+		<li src="/issueTblnews/list"><span>新闻编辑</span></li>
+		<li src="/sysTbllog/list"><span>日志管理</span></li>
 	</ul>
 	<li>
 		<img src="manager/img/work-sheet.svg" alt="Cog icon" class="icon">
@@ -141,7 +150,7 @@
 	</li>
 	<ul class="submenu">
 		<div class="expand-triangle"></div>
-		<li><span>工单管理</span></li>
+		<li src="/workTblsheet/list"><span>工单管理</span></li>
 	</ul>
 	<li><img src="manager/img/roll-back.svg" alt="Key icon" class="icon"><span>返回主页</span></li>
 </ul>
@@ -152,6 +161,10 @@
 	<script src="manager/js/lib/com.js"></script>
 	<script src="manager/js/lib/container.js"></script>
 	<script src="manager/js/common/jquery.js"></script>
-	<script src="manager/js/modules/test.js"></script>
+	<script src="manager/js/config/config.js"></script>
+	<script src="manager/js/utils/customjQueryUtil.js"></script>
+	<!-- requirejs按需加载 -->
+	<script src="manager/js/utils/require.js"  defer async="true"></script>
+	<script src="manager/js/modules/test.js" charset="utf-8" defer async="true"></script>
 </body>
 </html>

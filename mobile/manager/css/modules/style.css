@@ -1,13 +1,12 @@
 body {
   /*background-image: url("../img/blurred_bg.jpg");*/
   font-family: 'Raleway', sans-serif;
-  background-size: 100% 100%;
-  height: 100vh;
+  /*background-size: 100% 100%;*/
 }
 body .container {
   width: 100vw;
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   position: absolute;
   left: 0;
   right: 0;
@@ -255,9 +254,8 @@ body .container_ui input[type="checkbox"]:not(:checked) + label > .container_ui_
           transition-property: transform;
 }
 body .container_ui__expand {
-  width: 100vw;
   /*box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.16);*/
-  height: 100vh;
+  min-height: 100vh;
   position: absolute;
   top: 0;
   -webkit-transition-delay: .2s;
@@ -481,6 +479,40 @@ li {
 
 .animate {
   animation: flip 2000ms ease-in-out alternate;
+}
+/*www.joshinrai.cn的样式*/
+.bold_font{
+  font-weight:bold ;
+}
+table{
+  border-collapse:collapse;
+  width:100vw;
+  line-height:1.8em;
+}
+
+body .container .container_ui .newest_alert ,
+body .container .container_ui .newest_action,
+body .container .container_ui .gas_profile{
+  border-bottom:2px solid;
+  text-align:left;
+}
+.newest_alert table{
+  width:100vw;
+  line-height:1.8em;
+}
+.newest_alert table thead {
+  width:25vw;
+  text-align:center;
+}
+.newest_alert table thead th{
+  border-bottom:1px solid;
+}
+.newest_action table thead{
+  width:50vw;
+  text-align:center;
+}
+.newest_action table thead th{
+  border-bottom:1px solid;
 }
 
 @keyframes flip {

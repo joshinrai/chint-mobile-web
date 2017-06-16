@@ -123,11 +123,107 @@ define(function (){
 			}
 			return operateType ;
 		},
+		//获取操作日志数据
+		getOpetateData : function(params){
+			var p = new Promise(function(resolve, reject){
+				$.customAjax(''+config.basePath+config.getDataListLogs , params , function(flag , data){
+					if('success' === flag) resolve(data) ;
+				}) ;
+			}) ;
+			return p;
+		},
+		//渲染主面板
+		renderMain : function(){
+			var self = this ;
+			var html = [
+				"<input id='operate-log' type='checkbox'>",
+				"<label name='operate-label' for='operate-log'>",
+				  "<div class='container_ui__item' style='display:none;'>",
+				  "</div>",
+				  "<div class='container_ui__expand' id='close'>",
+					"<div class='heading'>",
+					  "<div class='heading_head'></div>",
+					  "<label for='operate-log'>",
+						"x",
+					 "</label>",
+					"</div>",
+					"<div class='body'>",
+					  "<div class='user'>",
+						"<div class='face'>",
+						  "<img src='manager/img/6.jpg'>",
+						"</div>",
+						"<div class='details'>",
+						  "<h2>操作日志</h2>",
+						 "<h3>描述:日常操作信息</h3>",
+						"</div>",
+					 "</div>",
+					 "<div class='content'>",
+						
+					 "</div>",
+					"</div>",
+					"</div>",
+				"</label>"].join("") ;
+
+			var operateObj = $("body .container_ui #operate-log") ;
+			if(!operateObj[0]){
+				$("body .container_ui").append(html) ;
+				self.renderTable() ;
+			}
+			$("body .container_ui").on("touchstart","label[name='operate-label']",function(){return false ;}) ;
+			$("#operate-log")[0].checked = 'checked' ;
+			$('.mainmenu').fadeOut().delay(500) ;
+			
+		},
+		//渲染table头部
+		renderTable : function(){
+			var self = this ;
+			self.getOpetateData({rows:10}).then(function(data){
+				return self.renderBody(data,self) ;
+			}).then(function(data){
+				console.log("this is a test ...") ;
+				var html   = [
+					'<h2 style="display:inline-block;width:50vw;padding-left:4vw;">操作日志</h2>',
+					'<a href="#" data-ajax="false" style="position:absolute;top:1.5em;right:4vw;">过滤条件</a>' ,
+					'<table style="width:100vw;text-align:left;border-collapse:collapse;">' ,
+					 	'<thead><tr><th style="width:25vw;border-bottom:1px solid;">类型</th><th style="width:25vw;border-bottom:1px solid;">信息</th>' ,
+						'<th colspan="2" style="width:50vw;border-bottom:1px solid;">户号</th></tr></thead>' ,
+						'<tbody>',data,'</tbody>' ,
+					'</table>' ,
+					'<span id="opreateLogSpan" style="float:right;"></span>'].join("") ;
+				$("body [for='operate-log'] .content").append(html) ;
+			}) ;
+			
+		},
+		//渲染table主体
+		renderBody : function(data,scope){
+			var array = [] ;
+			data.rows.forEach(function(data,index){
+				var operateType = String(data.operateType) ;
+				operateType = scope.getOpetateType(operateType) ;
+				var tr= [
+					"<tr><td>",operateType,"</td><td>",data.message,
+						"</td><td colspan='2'  style='word-break:break-all;'>",data.accountNo,"</td></tr>",
+						"<tr><td class='bold_font'>用户名</td><td>",data.ownerName,"</td><td class='bold_font'>",
+						"时间</td><td>",data.createDate,"</td></tr>",
+						"<tr><td class='bold_font'>新户号</td><td>",$.parseVoidValue(data.accountNo2),"</td><td ",
+						" class='bold_font'>新户名</td><td>",$.parseVoidValue(data.ownerName2),"</td></tr>",
+						"<tr><td class='bold_font'>表具</td><td colspan='3'>",$.parseVoidValue(data.deviceName),"</td></tr>",
+						"<tr><td class='bold_font'>新表具</td><td colspan='3'>",$.parseVoidValue(data.deviceName2),"</td></tr>",
+						"<tr><td class='bold_font' style='border-bottom:1px solid;'>卡号</td><td style='border-bottom:1px solid;'>",
+						$.parseVoidValue(data.cardNo),"</td><td style='font-weight:bold;min-width:3.15em;border-bottom:1px solid;'>操作员</td><td style='border-bottom:1px solid;'>"
+						,$.parseVoidValue(data.userName),"</td></tr>",
+						"<tr/>"].join("") ;
+				array.push(tr) ;
+			}) ;
+			return array.join("") ;
+		},
 		init : function(){
 			var self = this ;
-			$.emptyInnerPanel() ;//清空mainbody的内容
-			self.renderTableBody() ;//渲染table主体
-			self.renderFilterPanel() ;//渲染过滤条件panel
+			self.renderMain() ;
+			console.log("操作记录...") ;
+			//$.emptyInnerPanel() ;//清空mainbody的内容
+			//self.renderTableBody() ;//渲染table主体
+			//self.renderFilterPanel() ;//渲染过滤条件panel
 		}
 	}) ;
 
