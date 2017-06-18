@@ -3,7 +3,7 @@
 * 自定义mvvm,自定义组件及框架
 
 * 技术特点
-* 使用requirejs做文件路由,重写事件监听机制，使用container作为容器基类，view作为视图基类
+* 使用requirejs做文件路由,重写事件监听机制，使用container作为容器基类，view作为视图基类，使用sessionstorage缓存查询，在前端做分页，减少http请求，自定义分页等组件
 
 * 在线地址:www.joshinrai.cn:8080/GIMS
 (需要在手机浏览器中打开,或者使用chrome的移动web页开发模式)
