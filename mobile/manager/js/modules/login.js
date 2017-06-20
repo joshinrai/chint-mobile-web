@@ -8,13 +8,16 @@
             strong : $("<strong style='color:#d9534f'></strong>")
         },
         //检查登录人员	
-        checkUser : function(scope,params){
-            console.log("this is login test ...") ;
+        checkUser : function(scope,params,type){
             $.customAjax(''+config.basePath+config.checkUser,params,function(flag,data){
               if('success' === flag){
                   if(true === data.success){
                       scope.staticLable.label.hide() ;
-                      window.location.href = config.basePath+config.mainPage ;
+                      if("jq"===type){
+                    	  window.location.href = config.basePath+config.indexPage ;
+                      }else if("h5" === type){
+                    	  window.location.href = config.basePath+config.testPage ;
+                      }
                   }else if(false === data.success){
                    	  scope.dataFalse(data,scope) ;
                   }
@@ -26,13 +29,20 @@
         //为登录按钮绑定事件
         wapLogin : function(){
             var self = this ;
-            var formData = {} ;
-            $("#waplogin").on("touchstart",function(){      
-                $(".cont_form_login input").each(function(){
-                    formData[this.name] = $("[name='"+this.name+"']").val() ;
-                }) ;
-                self.checkUser(self , formData) ;
+            $("#waplogin").on("touchstart",function(){
+            	self.getParams(self,"jq") ;
             }) ;
+            $("#testlogin").on("touchstart",function(){
+            	self.getParams(self,"h5") ;
+            }) ;
+        },
+        //获取参数
+        getParams : function(scope,type){
+        	var formData = {} ;
+        	$(".cont_form_login input").each(function(){
+                formData[this.name] = $("[name='"+this.name+"']").val() ;
+            }) ;
+            scope.checkUser(scope , formData , type) ;
         },
         //为重置按钮绑定事件
         wapReset : function(){

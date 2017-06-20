@@ -72,7 +72,7 @@
 	    background-color: rgba(187, 168, 170, 0.79);
 	    width: 80%;
 	    border-radius:3px ;
-	    margin-top: 50%;
+	    margin-top: 25%;
 	    padding: 15px 0px;
 	}
 
@@ -80,7 +80,7 @@
   		background-color: #FF9800;
       	border: none;
 	    padding: 10px;
-	    width: 200px;
+	    width: 40vw;
 	    border-radius:3px;
 	    box-shadow: 1px 5px 20px -5px rgba(0,0,0,0.4);
 	    color: #fff;
@@ -217,7 +217,6 @@
 
   	.cont_form_login > input {
 	    padding: 15px 5px;
-	    margin-left: 10px;
 	    margin-top: 20px;
 	    width: 80%;
 	    border: none;
@@ -226,7 +225,7 @@
 	}
 
 	.cont_form_login > h2 {
-	    margin-top: 50%; 
+	    margin-top: 25%; 
 	    font-weight: 400;
 	    color: #757575;
 	}
@@ -253,8 +252,22 @@
 	    transition: all 0.5s;
 	}
 
-  	@media (min-width: 460px){
+  	@media (max-width: 460px){
   		.cont_ba_opcitiy {
 			margin-top: 50%;
   		}
+  		.cont_form_login > h2 {
+		    margin-top: 50%; 
+		    font-weight: 400;
+		    color: #757575;
+	    }
+	    /* 背景 */
+		.cont_ba_opcitiy {
+		    position: relative;
+		    background-color: rgba(187, 168, 170, 0.79);
+		    width: 80%;
+		    border-radius:3px ;
+		    margin-top: 50%;
+		    padding: 15px 0px;
+		}
   	}
