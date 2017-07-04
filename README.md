@@ -1,4 +1,4 @@
-## 正泰仪表公司燃气表移动web端
+## 移动web端jquery mobile版
 
 * 自定义mvvm,自定义组件及框架
 
